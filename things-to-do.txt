@@ -1,0 +1,4 @@
+ANDROID
+-- fix build with new libraries
+    -- react native vector icons
+    -- react native paper
