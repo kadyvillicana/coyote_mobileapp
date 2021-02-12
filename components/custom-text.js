@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 
-const CustomText = ({children, fontType, fontSize, style}) => {
+const CustomText = ({children, fontType, fontSize, style, secondaryColor}) => {
 
     const { colors } = useTheme();
 
@@ -29,6 +29,8 @@ const CustomText = ({children, fontType, fontSize, style}) => {
                 return 18;
             case 'big':
                 return 26;
+            case 'medium':
+                return 14;
             case 'small':
                 return 12;
             default:
@@ -43,7 +45,7 @@ const CustomText = ({children, fontType, fontSize, style}) => {
         <Text 
             style={[
                 {
-                    color: colors.text,
+                    color: secondaryColor ? colors.textSecondary : colors.text,
                     fontSize: size,
                     fontFamily: font
                 },

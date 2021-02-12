@@ -6,19 +6,32 @@ import { carActions } from '../data';
 
 const CarsAvailableScreen = () => {
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
-    const cars = carActions.getAllCars();
-    setList(cars);
-  }, [])
+
+    async function getCars() {
+      const cars = await carActions.getAvailableCars();
+      if(mounted) {
+        setList(cars);
+        setIsLoading(false);
+      }
+    }
+    getCars();
+    return () => mounted = false;
+  }, []);
  
   return(
     <CustomView>
       <View style={[styles.headerContainer]}>
         <View>
-            <CustomText fontSize='big' fontType='bold'>Inversión $434,323</CustomText>
-            <CustomText>BBBBB</CustomText>
+            <CustomText fontSize='big' fontType='bold'>Autos Disponibles</CustomText>
+            <View style={{marginTop: 15}}>
+              <CustomText
+                secondaryColor 
+                fontSize='medium'>Inversión total de: $445,0404</CustomText>
+            </View>
         </View>
       </View>
     </CustomView>

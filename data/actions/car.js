@@ -29,9 +29,9 @@ export default (realmInstance) => {
             }
         });
     },
-      
-    getAllCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName());
+
+    getAvailableCars: () => {
+        return realmInstance.objects(CarModel.getCarModelName()).filtered('status = $0 SORT(purchaseDate DESC)', 'available');
     },
   }
 }
