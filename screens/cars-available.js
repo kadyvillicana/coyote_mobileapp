@@ -17,7 +17,7 @@ const CarsAvailableScreen = () => {
     <CustomView>
       <View style={[styles.headerContainer]}>
         <View>
-            <CustomText fontSize='big'>Inversión $434,323</CustomText>
+            <CustomText fontSize='big' fontType='bold'>Inversión $434,323</CustomText>
             <CustomText>BBBBB</CustomText>
         </View>
       </View>

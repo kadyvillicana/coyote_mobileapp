@@ -45,6 +45,7 @@ const CustomText = ({children, fontType, fontSize, style}) => {
                 {
                     color: colors.text,
                     fontSize: size,
+                    fontFamily: font
                 },
                 style,
             ]
