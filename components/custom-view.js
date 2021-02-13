@@ -12,6 +12,8 @@ const CustomView = ({children, style}) => {
               { 
                 backgroundColor: colors.background, 
                 flex:1,
+                padding: 15,
+                paddingTop: 30,
               }]
           }>
           {children}

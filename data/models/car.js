@@ -32,33 +32,33 @@ export default class CarModel {
         },
     }
 
-    // get outgoingsList() {
-    //     return this.outgoings.map((e) => {
-    //         return {
-    //             name: e.name,
-    //             value: e.value,
-    //             id: e.id,
-    //         }
-    //     });
-    // }
+    get outgoingsList() {
+        return this.outgoings.map((e) => {
+            return {
+                name: e.name,
+                value: e.value,
+                id: e.id,
+            }
+        });
+    }
 
-    // get outgoingsSum(){
-    //     return this.outgoings.reduce((sum, {value}) => sum + value, 0);
-    // }
+    get outgoingsSum(){
+        return this.outgoings.reduce((sum, {value}) => sum + value, 0);
+    }
 
-    // get paymentsSum(){
-    //     return this.payments.reduce((sum, {value}) => sum + value, 0);
-    // }
+    get paymentsSum(){
+        return this.payments.reduce((sum, {value}) => sum + value, 0);
+    }
 
-    // get purchasePricePlusOutgoings(){
-    //     return this.outgoings.reduce( ( sum, { value } ) => sum + value , 0) + this.purchasePrice
-    // }
+    get purchasePricePlusOutgoings(){
+        return this.outgoings.reduce( ( sum, { value } ) => sum + value , 0) + this.purchasePrice
+    }
 
-    // get lastPaymentDate(){
-    //     const sortedPayments = _.sortBy(this.payments, 'createdDate');
-    //     if(!sortedPayments || sortedPayments.length === 0){
-    //         return new Date();
-    //     }
-    //     return sortedPayments[sortedPayments.length - 1].createdDate;
-    // }
+    get lastPaymentDate(){
+        const sortedPayments = _.sortBy(this.payments, 'createdDate');
+        if(!sortedPayments || sortedPayments.length === 0){
+            return new Date();
+        }
+        return sortedPayments[sortedPayments.length - 1].createdDate;
+    }
 };
