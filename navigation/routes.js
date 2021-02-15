@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // SCREENS
-import CarsAvailableScreen from '../screens/cars-available';
+import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
 
 const MyTheme = {
@@ -31,12 +31,12 @@ const MyTheme = {
 
 
 // StackNavigator
-const AvailableStack = createStackNavigator();
-function AvailableStackScreen(){
+const HomeStack = createStackNavigator();
+function HomeStackScreen(){
     return (
-        <AvailableStack.Navigator>
-            <AvailableStack.Screen name='Home' component={CarsAvailableScreen} options={{headerShown: false}} />
-        </AvailableStack.Navigator>
+        <HomeStack.Navigator>
+            <HomeStack.Screen name='Home' component={HomeScreen} options={{headerShown: false}} />
+        </HomeStack.Navigator>
     )
 }
 const RevenueStack = createStackNavigator();
@@ -58,8 +58,8 @@ export default () => {
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
-                        if (route.name === 'Disponibles') {
-                            iconName = 'car-sport-outline';
+                        if (route.name === 'Inicio') {
+                            iconName = 'home-outline';
                         }
                         if (route.name === 'Ingresos') {
                             iconName = 'trending-up-outline';
@@ -71,7 +71,7 @@ export default () => {
                     activeTintColor: MyTheme.colors.primary,
                     inactiveTintColor: 'white',
                 }}>
-                <Tab.Screen name='Disponibles' component={AvailableStackScreen} />
+                <Tab.Screen name='Inicio' component={HomeStackScreen} />
                 <Tab.Screen name='Ingresos' component={RevenueStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
