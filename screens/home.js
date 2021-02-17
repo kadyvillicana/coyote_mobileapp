@@ -103,7 +103,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: 50,
+    paddingTop: 30,
     // backgroundColor: 'red',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,

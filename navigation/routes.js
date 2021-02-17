@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // SCREENS
+import AddCarScreen from '../screens/add-car';
 import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
 
@@ -43,7 +44,7 @@ const RevenueStack = createStackNavigator();
 function RevenueStackScreen(){
     return (
         <RevenueStack.Navigator>
-            <RevenueStack.Screen name='Home' component={RevenueScreen} options={{headerShown: false}} />
+            <RevenueStack.Screen name='Home' component={AddCarScreen} options={{headerShown: false}} />
         </RevenueStack.Navigator>
     )
 }

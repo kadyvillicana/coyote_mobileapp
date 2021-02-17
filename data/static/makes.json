@@ -1,0 +1,194 @@
+[
+	{
+		"makeId": 475,
+		"makeName": "ACURA"
+	},
+	{
+		"makeId": 493,
+		"makeName": "ALFA ROMEO"
+	},
+	{
+		"makeId": 440,
+		"makeName": "ASTON MARTIN"
+	},
+	{
+		"makeId": 582,
+		"makeName": "AUDI"
+	},
+	{
+		"makeId": 583,
+		"makeName": "BENTLEY"
+	},
+	{
+		"makeId": 452,
+		"makeName": "BMW"
+	},
+	{
+		"makeId": 454,
+		"makeName": "BUGATTI"
+	},
+	{
+		"makeId": 468,
+		"makeName": "BUICK"
+	},
+	{
+		"makeId": 469,
+		"makeName": "CADILLAC"
+	},
+	{
+		"makeId": 591,
+		"makeName": "CAN-AM"
+	},
+	{
+		"makeId": 467,
+		"makeName": "CHEVROLET"
+	},
+	{
+		"makeId": 477,
+		"makeName": "CHRYSLER"
+	},
+	{
+		"makeId": 476,
+		"makeName": "DODGE"
+	},
+	{
+		"makeId": 603,
+		"makeName": "FERRARI"
+	},
+	{
+		"makeId": 492,
+		"makeName": "FIAT"
+	},
+	{
+		"makeId": 460,
+		"makeName": "FORD"
+	},
+	{
+		"makeId": 472,
+		"makeName": "GMC"
+	},
+	{
+		"makeId": 474,
+		"makeName": "HONDA"
+	},
+	{
+		"makeId": 6408,
+		"makeName": "HUNTER DESIGN GROUP, LLC"
+	},
+	{
+		"makeId": 498,
+		"makeName": "HYUNDAI"
+	},
+	{
+		"makeId": 480,
+		"makeName": "INFINITI"
+	},
+	{
+		"makeId": 542,
+		"makeName": "ISUZU"
+	},
+	{
+		"makeId": 6364,
+		"makeName": "JAC 427"
+	},
+	{
+		"makeId": 442,
+		"makeName": "JAGUAR"
+	},
+	{
+		"makeId": 499,
+		"makeName": "KIA"
+	},
+	{
+		"makeId": 502,
+		"makeName": "LAMBORGHINI"
+	},
+	{
+		"makeId": 515,
+		"makeName": "LEXUS"
+	},
+	{
+		"makeId": 464,
+		"makeName": "LINCOLN"
+	},
+	{
+		"makeId": 466,
+		"makeName": "LOTUS"
+	},
+	{
+		"makeId": 443,
+		"makeName": "MASERATI"
+	},
+	{
+		"makeId": 473,
+		"makeName": "MAZDA"
+	},
+	{
+		"makeId": 449,
+		"makeName": "MERCEDES-BENZ"
+	},
+	{
+		"makeId": 456,
+		"makeName": "MINI"
+	},
+	{
+		"makeId": 481,
+		"makeName": "MITSUBISHI"
+	},
+	{
+		"makeId": 478,
+		"makeName": "NISSAN"
+	},
+	{
+		"makeId": 5554,
+		"makeName": "PEUGEOT"
+	},
+	{
+		"makeId": 536,
+		"makeName": "PONTIAC"
+	},
+	{
+		"makeId": 584,
+		"makeName": "PORSCHE"
+	},
+	{
+		"makeId": 445,
+		"makeName": "ROLLS ROYCE"
+	},
+	{
+		"makeId": 572,
+		"makeName": "SAAB"
+	},
+	{
+		"makeId": 504,
+		"makeName": "SMART"
+	},
+	{
+		"makeId": 523,
+		"makeName": "SUBARU"
+	},
+	{
+		"makeId": 509,
+		"makeName": "SUZUKI"
+	},
+	{
+		"makeId": 441,
+		"makeName": "TESLA"
+	},
+	{
+		"makeId": 448,
+		"makeName": "TOYOTA"
+	},
+	{
+		"makeId": 482,
+		"makeName": "VOLKSWAGEN"
+	},
+	{
+		"makeId": 485,
+		"makeName": "VOLVO"
+	},
+	{
+		"makeId": 564,
+		"makeName": "YAMAHA"
+	}
+]
