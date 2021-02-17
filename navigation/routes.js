@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 // SCREENS
 import AddCarScreen from '../screens/add-car';
+import CarDetailsScreen from '../screens/car-details';
 import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
 
@@ -37,6 +38,19 @@ function HomeStackScreen(){
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen name='Home' component={HomeScreen} options={{headerShown: false}} />
+            <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={
+                {
+                    headerTransparent: true,
+                    headerTitle: '',
+                    headerStyle: {
+                        backgroundColor: MyTheme.colors.primary,
+                    },
+                    headerTintColor: MyTheme.colors.black,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }
+                } />
         </HomeStack.Navigator>
     )
 }

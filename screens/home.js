@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import CarCardHorizontal from '../components/car-card-horizontal';
-import CarCardVertical from '../components/car-card-vertical';
-import CustomHeader from '../components/custom-header';
-import CustomText from '../components/custom-text';
-import CustomView from '../components/custom-view';
-import MainScreenContainer from '../components/main-screen-container';
+import { CustomView, CustomHeader, CustomText, CarCardVertical, MainScreenContainer } from '../components';
 import { carActions } from '../data';
-import currencyFormat from '../utils/currencyFormat';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [list, setList] = useState([]);
   const [carsCredit, setCarsCredit] = useState([])
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +43,7 @@ const HomeScreen = () => {
             data={list}
             renderItem={
                 ({ item }) =>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
                     <CarCardVertical item={item}/>
                 </TouchableOpacity>
             }
