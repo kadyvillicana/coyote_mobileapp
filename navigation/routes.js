@@ -44,7 +44,7 @@ const RevenueStack = createStackNavigator();
 function RevenueStackScreen(){
     return (
         <RevenueStack.Navigator>
-            <RevenueStack.Screen name='Home' component={AddCarScreen} options={{headerShown: false}} />
+            <RevenueStack.Screen name='Home' component={RevenueScreen} options={{headerShown: false}} />
         </RevenueStack.Navigator>
     )
 }
