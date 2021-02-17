@@ -5,12 +5,9 @@ import { useTheme } from '@react-navigation/native';
 
 import CustomText from './custom-text';
 
-const CustomDropDown = () => {
+const CustomDropDown = ({data, defaultText, onItemSelected}) => {
   const { colors } = useTheme();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filteredList, setFilteredList] = useState(makes);
-
-  const onChangeSearch = query => setSearchQuery(query);
+  const [filteredList, setFilteredList] = useState(data);
 
   const [visible, setVisible] = useState(false);
   const [itemSelected, setItemSelected] = useState(null)
@@ -21,11 +18,12 @@ const CustomDropDown = () => {
   const containerStyle = {
     backgroundColor: colors.backgroundVariant,
     margin: 15,
-    padding: 15, };
+    padding: 15, 
+  };
 
   const searchFilterFunction = (query) => {
     const _query = query.toLowerCase();
-    const filtered = makes.filter((el) => {
+    const filtered = data.filter((el) => {
       return el.makeName.toLowerCase().includes(_query);
     });
     setFilteredList(filtered);
@@ -62,7 +60,8 @@ const CustomDropDown = () => {
   const onSelectedItem = (item) => {
     hideModal();
     setItemSelected(item);
-    setFilteredList(makes);
+    setFilteredList(data);
+    onItemSelected(item);
   }
 
   return(
@@ -78,7 +77,9 @@ const CustomDropDown = () => {
               justifyContent:'center',
               padding: 15,
               }}>
-            <CustomText>{itemSelected ? itemSelected.makeName : 'Presione para seleccionar marca'}</CustomText>
+            <CustomText
+              fontSize='medium'>
+              {itemSelected ? itemSelected.makeName : defaultText}</CustomText>
           </View>
         </TouchableOpacity>
       </View>
