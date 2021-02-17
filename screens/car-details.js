@@ -47,11 +47,11 @@ const CarDetailsScreen = ({route}) => {
           </View>
         </View>
         <View style={{flexDirection:'row'}}>
-          <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
+          <View style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Fecha de Compra</CustomText>
             <CustomText>{Moment(car.purchaseDate).format('DD MMM')}</CustomText>
           </View>
-          <View style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
+          <View style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderRightWidth:0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Kilometraje</CustomText>
             <CustomText>{car.miles}</CustomText>
           </View>
