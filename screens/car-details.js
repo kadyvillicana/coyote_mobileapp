@@ -15,11 +15,16 @@ const CarDetailsScreen = ({route}) => {
       case 'available':
         return 'Disponible'
       case 'sold':
-        return 'Vendido'
+        return 'de contado'
       case 'soldCredit':
-        return 'Crédito'
+        return 'a crédito'
     }
   }
+
+  const debt = car.soldPrice - car.paymentsSum;
+  const lastPaymentDate = car.status === 'soldCredit' ? Moment(car.lastPaymentDate) : Moment().startOf('day');
+  const today =  Moment().startOf('day');
+  const daysDiff = lastPaymentDate.diff(today, 'days', false) * -1;
 
   return(
     <View>
@@ -57,6 +62,65 @@ const CarDetailsScreen = ({route}) => {
           </View>
         </View>
       </View>
+      {/* Display if car is sold */}
+      {
+        car.status !== 'available' ?
+        <View style={{marginTop: 15}}>
+          <CustomText fontSize='medium' fontType='bold' style={{paddingLeft: 15}}>
+            {'Vehículo vendido '+ parseStatus(car.status)}
+          </CustomText>
+          <View style={{backgroundColor: colors.backgroundVariant, marginTop: 15}}>
+            <View style={{flexDirection:'row'}}>
+              <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
+                <CustomText fontSize='small' secondaryColor>Utilidad</CustomText>
+                <CustomText>{currencyFormat(car.soldPrice - car.purchasePricePlusOutgoings)}</CustomText>
+              </View>
+              <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
+                <CustomText fontSize='small' secondaryColor>Vendida en</CustomText>
+                <CustomText>{currencyFormat(car.soldPrice)}</CustomText>
+              </View>
+              <View style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
+                <CustomText fontSize='small' secondaryColor>Fecha de venta</CustomText>
+                <CustomText>{Moment(car.soldDate).format('DD MMM')}</CustomText>
+              </View>
+            </View>
+          </View> 
+        </View>
+          : null
+      }
+      {/* Display if car is sold credit */}
+      {
+        car.status === 'soldCredit' ?
+        <View>
+          {
+            car.paymentsSum === 0 ?
+            <View style={{padding: 15}}>
+              <CustomText fontSize='medium' fontType='bold' style={[{color: colors.error}]}>
+                Aún no han hecho ningun pago
+              </CustomText>
+            </View>
+            :
+            car.soldPrice === car.paymentsSum ? 
+              <View style={{padding: 15}}>
+                  <CustomText fontSize='medium' fontType='bold' style={[{color: colors.green}]}>
+                     El vehículo ha sido pagado el día {Moment(lastPaymentDate).format('DD MMM YYYY')}
+                  </CustomText>
+              </View>
+              :
+              <View>
+                <CustomText fontType='light' style={[{color: colors.text}]}>
+                    Han pasado {daysDiff} días desde el ultimo pago y aun se deben 
+                    <CustomText fontType='bold' style={[styles.carDetails, 
+                        {color: theme.colors.text},
+                        debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}> {currencyFormat(debt)} </CustomText>
+                    del vehículo
+                </CustomText>
+              </View>
+          }
+        </View>
+        : null
+      }
+
     </View>
   )
 }

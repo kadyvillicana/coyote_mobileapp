@@ -43,16 +43,16 @@ const HomeScreen = ({navigation}) => {
           <FlatList
             data={list}
             renderItem={
-                ({ item }) =>
-                <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
-                    <CarCardVertical
-                      title={item.make + ' ' + item.version + ' ' + item.model}
-                      subTitleLeft='Costo total'
-                      subTitleTextLeft={currencyFormat(item.purchasePricePlusOutgoings)}
-                      subTitleRight='Precio suguerido'
-                      subTitleTextRight={currencyFormat(item.salePrice)}
-                    />
-                </TouchableOpacity>
+              ({ item }) =>
+              <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
+                <CarCardVertical
+                  title={item.make + ' ' + item.version + ' ' + item.model}
+                  subTitleLeft='Costo total'
+                  subTitleTextLeft={currencyFormat(item.purchasePricePlusOutgoings)}
+                  subTitleRight='Precio suguerido'
+                  subTitleTextRight={currencyFormat(item.salePrice)}
+                />
+              </TouchableOpacity>
             }
             keyExtractor={item => item.id}
           />

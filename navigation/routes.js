@@ -69,6 +69,19 @@ function SoldHistoryStackScreen(){
     return (
         <SoldHistoryStack.Navigator>
             <SoldHistoryStack.Screen name='Home' component={SoldHistoryScreen} options={{headerShown: false}} />
+            <SoldHistoryStack.Screen name='CarDetails' component={CarDetailsScreen} options={
+                {
+                    headerTransparent: true,
+                    headerTitle: '',
+                    headerStyle: {
+                        backgroundColor: MyTheme.colors.primary,
+                    },
+                    headerTintColor: MyTheme.colors.black,
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                }
+                } />
         </SoldHistoryStack.Navigator>
     )
 }
