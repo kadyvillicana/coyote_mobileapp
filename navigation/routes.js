@@ -10,6 +10,7 @@ import AddCarScreen from '../screens/add-car';
 import CarDetailsScreen from '../screens/car-details';
 import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
+import SoldHistoryScreen from '../screens/sold-history';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -62,6 +63,16 @@ function RevenueStackScreen(){
         </RevenueStack.Navigator>
     )
 }
+
+const SoldHistoryStack = createStackNavigator();
+function SoldHistoryStackScreen(){
+    return (
+        <SoldHistoryStack.Navigator>
+            <SoldHistoryStack.Screen name='Home' component={SoldHistoryScreen} options={{headerShown: false}} />
+        </SoldHistoryStack.Navigator>
+    )
+}
+
 const Tab = createBottomTabNavigator();
 
 
@@ -79,6 +90,9 @@ export default () => {
                         if (route.name === 'Ingresos') {
                             iconName = 'trending-up-outline';
                         }
+                        if (route.name === 'Historial') {
+                            iconName = 'hourglass-outline';
+                        }
                         return <Icon name={iconName} size={size} color={color} />;
                     },
                 })}
@@ -88,6 +102,7 @@ export default () => {
                 }}>
                 <Tab.Screen name='Inicio' component={HomeStackScreen} />
                 <Tab.Screen name='Ingresos' component={RevenueStackScreen} />
+                <Tab.Screen name='Historial' component={SoldHistoryStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )
