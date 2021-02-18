@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, FlatList, View } from 'react-native';
 import { CustomView, CustomText, MainScreenContainer, CustomHeader, CarCardVertical } from '../components';
 import { carActions } from '../data';
+import Moment from 'moment';
+import currencyFormat from '../utils';
 
 const SoldHistoryScreen = ({navigation}) => {
 
@@ -20,7 +22,16 @@ const SoldHistoryScreen = ({navigation}) => {
     }
     getCars();
     return () => mounted = false;
-  }, [])
+  }, []);
+
+  parseStatus = (status) => {
+    switch(status){
+      case 'sold':
+        return 'contado'
+      case 'soldCredit':
+        return 'crédito'
+    }
+  }
 
   const MainBody = () => {
     return(
@@ -42,7 +53,13 @@ const SoldHistoryScreen = ({navigation}) => {
             renderItem={
                 ({ item }) =>
                 <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
-                    <CarCardVertical item={item}/>
+                    <CarCardVertical 
+                      title={item.make + ' ' + item.version + ' ' + item.model}
+                      subTitleLeft='Utilidad'
+                      subTitleTextLeft={currencyFormat(item.soldPrice - item.purchasePricePlusOutgoings)}
+                      subTitleRight='Fecha de Venta'
+                      subTitleTextRight={Moment(item.soldDate).format('DD MMM') + ' (' + parseStatus(item.status) + ')'}
+                    item={item}/>
                 </TouchableOpacity>
             }
             keyExtractor={item => item.id}

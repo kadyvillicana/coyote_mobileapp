@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import CustomText from '../components/custom-text';
 import CustomView from '../components/custom-view';
 import { useTheme } from '@react-navigation/native';
-import currencyFormat from '../utils/currencyFormat';
+import currencyFormat from '../utils';
 import Moment from 'moment';
 
 const CarDetailsScreen = ({route}) => {

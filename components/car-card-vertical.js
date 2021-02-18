@@ -2,9 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import CustomText from './custom-text';
-import currencyFormat from '../utils/currencyFormat';
+import currencyFormat from '../utils';
 
-const CarCardVertical = ({item}) => {
+const CarCardVertical = ({
+  title,
+  subTitleLeft,
+  subTitleTextLeft,
+  subTitleTextRight,
+  subTitleRight,
+}) => {
   const { colors } = useTheme();
   return (
     <View style={
@@ -19,7 +25,7 @@ const CarCardVertical = ({item}) => {
           <View>
               <CustomText
                   fontType='bold'>
-                      {item.make + ' ' + item.version + ' ' + item.model}
+                      {title ? title : ''}
               </CustomText>
           </View>
       </View>
@@ -28,15 +34,15 @@ const CarCardVertical = ({item}) => {
               <CustomText
                 secondaryColor
                 fontSize='small'
-                  fontType='light'>Costo total</CustomText>
-              <CustomText>{currencyFormat(item.purchasePricePlusOutgoings)}</CustomText>
+                  fontType='light'>{subTitleLeft ? subTitleLeft : ''}</CustomText>
+              <CustomText>{subTitleTextLeft ? subTitleTextLeft : ''}</CustomText>
           </View>
           <View style={{flex: 1}}>
               <CustomText
                 secondaryColor
                 fontSize='small'
-                  fontType='light'>Precio suguerido</CustomText>
-              <CustomText>{currencyFormat(item.salePrice)}</CustomText>
+                  fontType='light'>{subTitleRight ? subTitleRight : ''}</CustomText>
+              <CustomText>{subTitleTextRight ? subTitleTextRight : ''}</CustomText>
           </View>
       </View>
     </View>

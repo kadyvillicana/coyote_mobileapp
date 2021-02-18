@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { CustomView, CustomHeader, CustomText, CarCardVertical, MainScreenContainer } from '../components';
 import { carActions } from '../data';
+import currencyFormat from '../utils';
 
 const HomeScreen = ({navigation}) => {
   const [list, setList] = useState([]);
@@ -29,7 +30,7 @@ const HomeScreen = ({navigation}) => {
       <CustomView>
         <CustomHeader 
           header='Inicio'
-          subHeader={'Inversión Actual: $444,444' }
+          subHeader={'Inversión Actual: ' + currencyFormat(list.reduce((sum, {purchasePricePlusOutgoings}) => sum + purchasePricePlusOutgoings, 0)) }
         />
         <View style={{marginBottom:15}}>
           <CustomText
@@ -44,7 +45,13 @@ const HomeScreen = ({navigation}) => {
             renderItem={
                 ({ item }) =>
                 <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
-                    <CarCardVertical item={item}/>
+                    <CarCardVertical
+                      title={item.make + ' ' + item.version + ' ' + item.model}
+                      subTitleLeft='Costo total'
+                      subTitleTextLeft={currencyFormat(item.purchasePricePlusOutgoings)}
+                      subTitleRight='Precio suguerido'
+                      subTitleTextRight={currencyFormat(item.salePrice)}
+                    />
                 </TouchableOpacity>
             }
             keyExtractor={item => item.id}
