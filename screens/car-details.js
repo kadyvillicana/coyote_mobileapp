@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { FAB, Portal, Provider } from 'react-native-paper';
 import CustomText from '../components/custom-text';
-import CustomView from '../components/custom-view';
 import { useTheme } from '@react-navigation/native';
 import currencyFormat from '../utils';
 import Moment from 'moment';
@@ -9,6 +9,11 @@ import Moment from 'moment';
 const CarDetailsScreen = ({route}) => {
   const {colors} = useTheme();
   const {car} = route.params;
+  const [state, setState] = React.useState({ open: false });
+
+  const onStateChange = ({ open }) => setState({ open });
+
+  const { open } = state;
 
   parseStatus = (status) => {
     switch(status){
@@ -27,7 +32,8 @@ const CarDetailsScreen = ({route}) => {
   const daysDiff = lastPaymentDate.diff(today, 'days', false) * -1;
 
   return(
-    <View>
+    <Provider>
+      <Portal>
       <View style={{backgroundColor: colors.primary, paddingTop: 85}}>
         <CustomText
           style={{color: colors.black, padding: 15}}
@@ -120,8 +126,40 @@ const CarDetailsScreen = ({route}) => {
         </View>
         : null
       }
+      {/* <FAB.Group
+          open={open}
+          icon={open ? 'calendar-today' : 'plus'}
+          fabStyle={{backgroundColor: colors.primary}}
+          theme={{dark: true}}
+          actions={[
+            { icon: 'plus', onPress: () => console.log('Pressed add') },
+            {
+              icon: 'star',
+              label: 'Star',
+              onPress: () => console.log('Pressed star'),
+            },
+            {
+              icon: 'email',
+              label: 'Email',
+              onPress: () => console.log('Pressed email'),
+            },
+            {
+              icon: 'bell',
+              label: 'Remind',
+              onPress: () => console.log('Pressed notifications'),
+              small: false,
+            },
+          ]}
+          onStateChange={onStateChange}
+          onPress={() => {
+            if (open) {
+              // do something if the speed dial is open
+            }
+          }}
+        /> */}
+      </Portal>
 
-    </View>
+    </Provider>
   )
 }
 
