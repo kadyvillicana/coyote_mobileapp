@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FAB, Portal, Provider } from 'react-native-paper';
-import CustomText from '../components/custom-text';
 import { useTheme } from '@react-navigation/native';
 import currencyFormat from '../utils';
 import Moment from 'moment';
+import { CustomHeaderChild, CustomText} from '../components';
 
-const CarDetailsScreen = ({route}) => {
+const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();
   const {car} = route.params;
   const [state, setState] = React.useState({ open: false });
@@ -34,13 +34,9 @@ const CarDetailsScreen = ({route}) => {
   return(
     <Provider>
       <Portal>
-      <View style={{backgroundColor: colors.primary, paddingTop: 85}}>
-        <CustomText
-          style={{color: colors.black, padding: 15}}
-          fontSize='big' fontType='bold'>
-          {car.make + ' ' + car.version + ' ' + car.model}
-        </CustomText>
-      </View>
+        <CustomHeaderChild 
+          title={car.make + ' ' + car.version + ' ' + car.model}
+        />
       {/* Container Car Details */}
       <View style={{backgroundColor: colors.backgroundVariant}}>
         <View style={[styles.detailContainer, {borderWidth:0, flex: 0} ]}>
@@ -48,10 +44,15 @@ const CarDetailsScreen = ({route}) => {
           <CustomText>{currencyFormat(car.purchasePricePlusOutgoings)}</CustomText>
         </View>
         <View style={{flexDirection:'row'}}>
-          <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
-            <CustomText fontSize='small' secondaryColor>Total de gastos</CustomText>
-            <CustomText>{currencyFormat(car.outgoingsSum, 'Sin gastos')}</CustomText>
-          </View>
+          <TouchableOpacity
+            style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}
+            onPress={() => navigation.navigate('Outgoings', {outgoings: car.outgoings})}>
+            <View>
+              {/* TODO: Add a + button  */}
+              <CustomText fontSize='small' secondaryColor>Total de gastos</CustomText>
+              <CustomText>{currencyFormat(car.outgoingsSum, 'Sin gastos')}</CustomText>
+            </View>
+          </TouchableOpacity>
           <View style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Precio de Compra</CustomText>
             <CustomText>{currencyFormat(car.purchasePrice)}</CustomText>

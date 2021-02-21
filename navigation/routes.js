@@ -11,6 +11,7 @@ import CarDetailsScreen from '../screens/car-details';
 import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
 import SoldHistoryScreen from '../screens/sold-history';
+import OutGoingScreen from '../screens/outgoings';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -32,6 +33,18 @@ const MyTheme = {
     },
   };
 
+const customHeaderBar = {
+    headerTransparent: true,
+    headerTitle: '',
+    headerStyle: {
+        backgroundColor: MyTheme.colors.primary,
+    },
+    headerTintColor: MyTheme.colors.black,
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
+}
+
 
 // StackNavigator
 const HomeStack = createStackNavigator();
@@ -39,19 +52,8 @@ function HomeStackScreen(){
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen name='Home' component={HomeScreen} options={{headerShown: false}} />
-            <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={
-                {
-                    headerTransparent: true,
-                    headerTitle: '',
-                    headerStyle: {
-                        backgroundColor: MyTheme.colors.primary,
-                    },
-                    headerTintColor: MyTheme.colors.black,
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                }
-                } />
+            <HomeStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
+            <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
         </HomeStack.Navigator>
     )
 }
@@ -69,19 +71,8 @@ function SoldHistoryStackScreen(){
     return (
         <SoldHistoryStack.Navigator>
             <SoldHistoryStack.Screen name='Home' component={SoldHistoryScreen} options={{headerShown: false}} />
-            <SoldHistoryStack.Screen name='CarDetails' component={CarDetailsScreen} options={
-                {
-                    headerTransparent: true,
-                    headerTitle: '',
-                    headerStyle: {
-                        backgroundColor: MyTheme.colors.primary,
-                    },
-                    headerTintColor: MyTheme.colors.black,
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                }
-                } />
+            <SoldHistoryStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
+            <SoldHistoryStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar}/>
         </SoldHistoryStack.Navigator>
     )
 }
