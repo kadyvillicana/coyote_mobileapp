@@ -3,12 +3,12 @@ import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useTheme } from '@react-navigation/native';
 
-const CircleButton = ({icon, primary, onPress}) => {
-
+const CircleButton = (props) => {
+  const {icon, primary} = props;
   const { colors } = useTheme(); 
   return(
     <TouchableOpacity
-      onPress={onPress}
+      {...props}
       style={{
         borderWidth:1,
         borderColor:'rgba(0,0,0,0.2)',
