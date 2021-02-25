@@ -10,24 +10,22 @@ import { carActions } from '../data';
 const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();
   const [car, setCar] = useState(route.params.car);
-  const [state, setState] = React.useState({ open: false });
+  // const [state, setState] = React.useState({ open: false });
 
   useFocusEffect(
     React.useCallback(() => {
       let isActive = true;
       async function getCars(){
         try{
-          const car = await carActions.getCarById(car.id)
+          const _car = await carActions.getCarById(car.id)
           if(isActive) {
-            setCar(car);
+            setCar(_car);
           }
         } catch(e) {
         }
       }
       getCars();
-      return () => {
-        isActive = false;
-      };
+      return () => isActive = false;
     }, [])
 );
 

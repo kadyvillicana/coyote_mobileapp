@@ -11,17 +11,14 @@ const OutGoingScreen = ({route}) => {
   const [list, setList] = useState(route.params.outgoings);
   const {carId} = route.params;
   const [visible, setVisible] = useState(false);
-  let item = {
-    description: '',
-    value: '',
-    id: ''
-  }
+  const [defaultItem, setDefaultItem] = useState({name: '', value: '', id: ''});
+
   const reset = () => {
-    item = {
-      description: '',
+   setDefaultItem({
+      name: '',
       value: '',
       id: ''
-    } 
+    }); 
   }
 
   const showModal = () => setVisible(true);
@@ -33,7 +30,6 @@ const OutGoingScreen = ({route}) => {
   const { handleSubmit, errors, control } = useForm({});
 
   const onSubmit = async data => {
-    console.log(data);
     data.id = Math.round(Math.random() * 1000000) + '';
     data.value = parseInt(data.value);
     const previuosData = list;
@@ -48,6 +44,7 @@ const OutGoingScreen = ({route}) => {
       return;
     }
     const filteredData = list.filter(item => item.id !== id);
+    await carActions.updateCarById({id:carId, outgoings: filteredData});
     setList(filteredData);
   }
 
@@ -68,7 +65,6 @@ const OutGoingScreen = ({route}) => {
           </View>
           <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-around'}}>
             <CircleButton onPress={() => removeItem(item.id)} icon='close'/>
-            <CircleButton onPress={showModal} icon='pencil-outline' primary/>
           </View>
       </View>
     );
@@ -145,7 +141,7 @@ const OutGoingScreen = ({route}) => {
               maxLength={20}
               control={control}
               rules={{ required: true, maxLength: 20, minLength: 1}}
-              defaultValue={item.description}
+              defaultValue={defaultItem.name}
               mode='outlined'
               autoCorrect={false}
             />
@@ -161,7 +157,7 @@ const OutGoingScreen = ({route}) => {
               maxLength={10}
               control={control}
               rules={{ required: true, maxLength: 10, pattern: /^[0-9]*$/i }}
-              defaultValue={item.value}
+              defaultValue={defaultItem.value}
               autoCorrect={false}
               mode='outlined'
             />
