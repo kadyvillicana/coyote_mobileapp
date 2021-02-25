@@ -4,19 +4,18 @@ import { useTheme } from '@react-navigation/native';
 
 const CustomTextInput = (props) =>{
   const {colors} = useTheme();
-  const {mode, style} = props;
+  const {style} = props;
   return (
     <TextInput
-      {...props}
-      // mode={mode ? mode : 'outlined'}
-      style=
+        {...props}
+        style=
           {[
               style,
               {
                   backgroundColor: colors.backgroundVariant,
               }
           ]}
-      theme=
+        theme=
           {{ 
               colors: { 
                   error: colors.error,

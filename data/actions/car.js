@@ -30,6 +30,23 @@ export default (realmInstance) => {
         });
     },
 
+    updateCarById: (car) => {
+        return new Promise((resolve, reject) => {
+            try {
+                realmInstance.write(() => {
+                    const updatedCar = realmInstance.create(CarModel.getCarModelName(), car, 'modified');
+                    resolve(updatedCar);
+                })
+            } catch(e) {
+                reject(e);
+            }
+        });
+    },
+
+    getCarById: id => {
+        return realmInstance.objects(CarModel.getCarModelName()).filtered('id = $0', id)[0];
+    },
+
     getAvailableCars: () => {
         return realmInstance.objects(CarModel.getCarModelName()).filtered('status = $0 SORT(purchaseDate DESC)', 'available');
     },

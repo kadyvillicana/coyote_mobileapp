@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FAB, Portal, Provider } from 'react-native-paper';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 import currencyFormat from '../utils';
 import Moment from 'moment';
 import { CustomHeaderChild, CustomText} from '../components';
+import { carActions } from '../data';
 
 const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();
-  const {car} = route.params;
+  const [car, setCar] = useState(route.params.car);
   const [state, setState] = React.useState({ open: false });
 
-  const onStateChange = ({ open }) => setState({ open });
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+      async function getCars(){
+        try{
+          const car = await carActions.getCarById(car.id)
+          if(isActive) {
+            setCar(car);
+          }
+        } catch(e) {
+        }
+      }
+      getCars();
+      return () => {
+        isActive = false;
+      };
+    }, [])
+);
 
-  const { open } = state;
+  // const onStateChange = ({ open }) => setState({ open });
 
-  parseStatus = (status) => {
+  // const { open } = state;
+
+  const parseStatus = (status) => {
     switch(status){
       case 'available':
         return 'Disponible'
@@ -25,6 +45,8 @@ const CarDetailsScreen = ({route, navigation}) => {
         return 'a crédito'
     }
   }
+
+
 
   const debt = car.soldPrice - car.paymentsSum;
   const lastPaymentDate = car.status === 'soldCredit' ? Moment(car.lastPaymentDate) : Moment().startOf('day');
@@ -46,7 +68,7 @@ const CarDetailsScreen = ({route, navigation}) => {
         <View style={{flexDirection:'row'}}>
           <TouchableOpacity
             style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}
-            onPress={() => navigation.navigate('Outgoings', {outgoings: car.outgoings})}>
+            onPress={() => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id})}>
             <View>
               {/* TODO: Add a + button  */}
               <CustomText fontSize='small' secondaryColor>Total de gastos</CustomText>
