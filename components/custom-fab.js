@@ -7,7 +7,7 @@ const CustomFab = (props) => {
   return(
     <FAB
       {...props}
-      style={{backgroundColor: colors.primary}}
+      style={[props.style, {backgroundColor: colors.primary}]}
     />
   );
 }

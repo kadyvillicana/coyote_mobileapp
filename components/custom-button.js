@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from "react-native-paper";
 import { useTheme } from '@react-navigation/native';
 
-export function CustomButton(props){
+const CustomButton = (props) => {
   const {colors} = useTheme();
   const {style, children, mode} = props;
   return (
@@ -32,3 +32,5 @@ export function CustomButton(props){
     </Button>
   )
 }
+
+export default CustomButton;

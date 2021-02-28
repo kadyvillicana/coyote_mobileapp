@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, View } from 'react-native';
-import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm, CircleButton } from '../components';
+import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm, CircleButton, CustomButton } from '../components';
 import currencyFormat from '../utils';
 import { Provider, Portal, Modal, TextInput } from 'react-native-paper';
-import { CustomButton } from '../components/custom-button';
 import { useForm, Controller } from 'react-hook-form';
 import { carActions } from '../data';
 
@@ -144,8 +143,9 @@ const OutGoingScreen = ({route}) => {
               defaultValue={defaultItem.name}
               mode='outlined'
               autoCorrect={false}
+              autoFocus={true}
             />
-            { errors.name && errors.name.type === 'required' ? 
+            { errors && errors.name && errors.name.type === 'required' ? 
               <ErrorTextForm text='Agrega una descripción' /> : null
             }
             <Controller
@@ -160,11 +160,12 @@ const OutGoingScreen = ({route}) => {
               defaultValue={defaultItem.value}
               autoCorrect={false}
               mode='outlined'
+              keyboardType='numeric'
             />
-            { errors.value && errors.value.type === 'required' ? 
+            { errors && errors.value && errors.value.type === 'required' ? 
               <ErrorTextForm text='Agrega un costo' /> : null
             }
-            { errors.value && errors.value.type === 'pattern' ? 
+            { errors && errors.value && errors.value.type === 'pattern' ? 
               <ErrorTextForm text='Agrega solo números' /> : null
             }
             <CustomButton 

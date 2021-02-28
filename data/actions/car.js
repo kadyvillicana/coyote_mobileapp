@@ -3,31 +3,50 @@ import _ from 'lodash';
 
 export default (realmInstance) => {
   return {
-    saveCar: (carResponse) => {
-        const { 
-            make, model, version, miles, purchasePrice
-        } = carResponse;
+    saveCar: (data) => {
         return new Promise((resolve, reject) => {
             try {
-                const id = Math.round(Math.random() * 1000000) + '';
-                const purchaseDate = new Date();
-                const car = {
-                    id,
-                    make,
-                    model, 
-                    version,
-                    miles,
+                data.id = Math.round(Math.random() * 1000000) + '';
+                const purchaseDate =  new Date();
+                data.purchasePrice = parseInt(data.purchasePrice);
+                data.miles = parseInt(data.miles);
+                const car ={
+                    ...data,
                     purchaseDate,
-                    purchasePrice
-                };
+                }
                 realmInstance.write(() => {
-                    const createdCar = realmInstance.create(CarModel.getCarModelName(), car, true);
-                    resolve(createdCar);
-                });
-            } catch(e) {
+                    const created = realmInstance.create(CarModel.getCarModelName(), car, true);
+                    resolve(created);
+                })
+                resolve(true);
+            } catch(e){
                 reject(e);
             }
-        });
+        })
+        // const { 
+        //     make, model, version, miles, purchasePrice
+        // } = carResponse;
+        // return new Promise((resolve, reject) => {
+        //     try {
+        //         const id = Math.round(Math.random() * 1000000) + '';
+        //         const purchaseDate = new Date();
+        //         const car = {
+        //             id,
+        //             make,
+        //             model, 
+        //             version,
+        //             miles,
+        //             purchaseDate,
+        //             purchasePrice
+        //         };
+        //         realmInstance.write(() => {
+        //             const createdCar = realmInstance.create(CarModel.getCarModelName(), car, true);
+        //             resolve(createdCar);
+        //         });
+        //     } catch(e) {
+        //         reject(e);
+        //     }
+        // });
     },
 
     updateCarById: (car) => {

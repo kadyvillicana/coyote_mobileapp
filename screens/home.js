@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { CustomView, CustomHeader, CustomText, CarCardVertical, MainScreenContainer } from '../components';
+import { CustomView, CustomHeader, CustomText, CarCardVertical, MainScreenContainer, CustomFab } from '../components';
 import { carActions } from '../data';
+import { FAB } from 'react-native-paper';
 import currencyFormat from '../utils';
 
 const HomeScreen = ({navigation}) => {
   const [list, setList] = useState([]);
-  const [carsCredit, setCarsCredit] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
-
     async function getCars() {
       const cars = await carActions.getAvailableCars();
-      const carsCredit = await carActions.getSoldCreditCars();
       if(mounted) {
         setList(cars);
-        setCarsCredit(carsCredit)
         setIsLoading(false);
       }
     }
@@ -25,9 +23,50 @@ const HomeScreen = ({navigation}) => {
     return () => mounted = false;
   }, []);
 
-  const MainBody = () => {
+  useFocusEffect(
+    React.useCallback(() => {
+      let mounted = true;
+      async function getCars(){
+        try{
+          const cars = await carActions.getAvailableCars();
+          if(mounted) {
+            setList(cars);
+          }
+        } catch(e) {
+        }
+      }
+      getCars();
+      return () => mounted = false;
+    }, [])
+  );
+
+  const NoData = () => {
     return(
       <CustomView>
+        <CustomHeader 
+          header='Inicio'
+        />
+        <View
+          style={{alignItems: 'center', justifyContent: 'center', marginTop: 180}}>
+          <CustomText
+            style={{marginBottom: 25}}
+            fontType='bold'
+            fontSize='medium'
+          >Agrega un vehículo</CustomText>
+          <CustomFab 
+              style={{justifyContent: 'center', position: 'relative'}}
+              icon='plus'
+              onPress={() => navigation.navigate('AddCar')}
+          />
+        </View>
+      </CustomView>
+    )
+  }
+
+  const MainBody = () => {
+    return(
+      <View
+        style={{flex:1, padding: 15}}>
         <CustomHeader 
           header='Inicio'
           subHeader={'Inversión Actual: ' + currencyFormat(list.reduce((sum, {purchasePricePlusOutgoings}) => sum + purchasePricePlusOutgoings, 0)) }
@@ -39,45 +78,38 @@ const HomeScreen = ({navigation}) => {
             {list.length} Vehículos disponibles
           </CustomText>
         </View>
-        <View style={{marginBottom: 30}}>
-          <FlatList
-            data={list}
-            renderItem={
-              ({ item }) =>
-              <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
-                <CarCardVertical
-                  title={item.make + ' ' + item.version + ' ' + item.model}
-                  subTitleLeft='Costo total'
-                  subTitleTextLeft={currencyFormat(item.purchasePricePlusOutgoings)}
-                  subTitleRight='Precio suguerido'
-                  subTitleTextRight={currencyFormat(item.salePrice)}
-                />
-              </TouchableOpacity>
-            }
-            keyExtractor={item => item.id}
+        <FlatList
+          data={list}
+          renderItem={
+            ({ item }) =>
+            <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
+              <CarCardVertical
+                title={item.make + ' ' + item.version + ' ' + item.model}
+                subTitleLeft='Costo total'
+                subTitleTextLeft={currencyFormat(item.purchasePricePlusOutgoings)}
+                subTitleRight='Precio suguerido'
+                subTitleTextRight={currencyFormat(item.salePrice)}
+              />
+            </TouchableOpacity>
+          }
+          keyExtractor={item => item.id}
+        />
+          <CustomFab
+            style={{position: 'absolute', bottom: 0, right:0, margin: 30}}
+            icon='plus'
+            onPress={() => navigation.navigate('AddCar')}
           />
-        </View>
-      </CustomView>
+      </View>
     );
   }
 
   return(
-    <MainScreenContainer isLoading={isLoading} bodyView={<MainBody/>} />
+    <MainScreenContainer 
+      isLoading={isLoading} 
+      bodyView={ list && list.length > 0 ? <MainBody/> : <NoData/>}
+    />
   )
-
-  
   
 }
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    paddingTop: 30,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    paddingBottom: 30,
-    flexDirection: 'row',
-    borderColor: 'blue',
-},
-})
 
 export default HomeScreen;
