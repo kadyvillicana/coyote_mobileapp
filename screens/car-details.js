@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { FAB, Portal, Provider } from 'react-native-paper';
+import { Portal, Provider } from 'react-native-paper';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 import currencyFormat from '../utils';
 import Moment from 'moment';
@@ -10,7 +10,6 @@ import { carActions } from '../data';
 const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();
   const [car, setCar] = useState(route.params.car);
-  // const [state, setState] = React.useState({ open: false });
 
   useFocusEffect(
     React.useCallback(() => {
@@ -28,10 +27,6 @@ const CarDetailsScreen = ({route, navigation}) => {
       return () => isActive = false;
     }, [])
 );
-
-  // const onStateChange = ({ open }) => setState({ open });
-
-  // const { open } = state;
 
   const parseStatus = (status) => {
     switch(status){
@@ -147,37 +142,6 @@ const CarDetailsScreen = ({route, navigation}) => {
         </View>
         : null
       }
-      {/* <FAB.Group
-          open={open}
-          icon={open ? 'calendar-today' : 'plus'}
-          fabStyle={{backgroundColor: colors.primary}}
-          theme={{dark: true}}
-          actions={[
-            { icon: 'plus', onPress: () => console.log('Pressed add') },
-            {
-              icon: 'star',
-              label: 'Star',
-              onPress: () => console.log('Pressed star'),
-            },
-            {
-              icon: 'email',
-              label: 'Email',
-              onPress: () => console.log('Pressed email'),
-            },
-            {
-              icon: 'bell',
-              label: 'Remind',
-              onPress: () => console.log('Pressed notifications'),
-              small: false,
-            },
-          ]}
-          onStateChange={onStateChange}
-          onPress={() => {
-            if (open) {
-              // do something if the speed dial is open
-            }
-          }}
-        /> */}
       </Portal>
 
     </Provider>
