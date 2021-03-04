@@ -90,13 +90,14 @@ const OutGoingScreen = ({route}) => {
 
   return(
     <Provider>
-      <View>
+      <View style={{flex: 1}}>
         <CustomHeaderChild 
           title='Gastos'
         />
         {
           list && list.length > 0 ? 
-          <View>
+          <View
+            style={{flex: 1}}>
             <View 
               style={{flexDirection: 'row', padding: 15}}>
                 <View style={{flex: 3}}>
@@ -112,6 +113,11 @@ const OutGoingScreen = ({route}) => {
             <FlatList 
               data={list}
               renderItem={({item}) =>ItemList(item)}
+            />
+            <CustomFab
+              style={{position: 'absolute', bottom: 0, right:0, margin: 30}}
+              icon='plus'
+              onPress={showModal}
             />
           </View>
           :

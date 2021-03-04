@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Portal, Provider } from 'react-native-paper';
+import { Portal, Provider, FAB } from 'react-native-paper';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
 import currencyFormat from '../utils';
 import Moment from 'moment';
@@ -11,6 +11,13 @@ const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();
   const carId = route.params.carId;
   const [car, setCar] = useState({});
+
+  const [state, setState] = React.useState({ open: false });
+
+  const onStateChange = ({ open }) => setState({ open });
+
+  const { open } = state;
+
 
   useEffect(() => {
     let mounted = true;
@@ -64,7 +71,7 @@ const CarDetailsScreen = ({route, navigation}) => {
       <Portal>
         <CustomHeaderChild 
           title={car.make + ' ' + car.version + ' ' + car.model}
-          onPressRightButton={() => navigation.navigate('EditCar', {carId})}
+          // onPressRightButton={() => navigation.navigate('EditCar', {carId})}
         />
       {/* Container Car Details */}
       <View style={{backgroundColor: colors.backgroundVariant}}>
@@ -156,6 +163,43 @@ const CarDetailsScreen = ({route, navigation}) => {
         </View>
         : null
       }
+
+      <FAB.Group
+          open={open}
+          icon={open ? 'close' : 'dots-vertical'}
+          fabStyle={{backgroundColor: colors.primary}}
+          theme={{dark: true}}
+          actions={[
+            { 
+              icon: 'pencil-outline',
+              label: 'Editar',
+              onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+            },
+            {
+              icon: 'check',
+              label: 'Vender',
+              onPress: () => console.log('Pressed star'),
+            },
+            {
+              icon: 'currency-usd',
+              label: 'Gastos',
+              onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
+            },
+            {
+              icon: 'credit-card-outline',
+              label: 'Pagos',
+              onPress: () => console.log('Pressed star'),
+            },
+            
+          ]}
+          onStateChange={onStateChange}
+          onPress={() => {
+            if (open) {
+              // do something if the speed dial is open
+              //<ion-icon name="ellipsis-vertical-outline"></ion-icon>
+            }
+          }}
+        />
       </Portal>
 
     </Provider>
