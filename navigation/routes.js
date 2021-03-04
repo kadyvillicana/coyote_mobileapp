@@ -14,6 +14,7 @@ import RevenueScreen from '../screens/revenue';
 import SellCarScreen from '../screens/sell-car';
 import SoldHistoryScreen from '../screens/sold-history';
 import OutGoingScreen from '../screens/outgoings';
+import PaymentScreen from '../screens/payments';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -59,6 +60,7 @@ function HomeStackScreen(){
             <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
             <HomeStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='SellCar' component={SellCarScreen} options={customHeaderBar} />
+            <HomeStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
         </HomeStack.Navigator>
     )
 }

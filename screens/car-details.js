@@ -151,8 +151,9 @@ const CarDetailsScreen = ({route, navigation}) => {
               <View>
                 <CustomText fontType='light' style={[{color: colors.text}]}>
                     Han pasado {daysDiff} días desde el ultimo pago y aun se deben 
-                    <CustomText fontType='bold' style={[styles.carDetails, 
-                        {color: theme.colors.text},
+                    <CustomText fontType='bold' 
+                    style={[
+                        {color: colors.text},
                         debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}> {currencyFormat(debt)} </CustomText>
                     del vehículo
                 </CustomText>
@@ -186,7 +187,7 @@ const CarDetailsScreen = ({route, navigation}) => {
             {
               icon: 'credit-card-outline',
               label: 'Pagos',
-              onPress: () => console.log('Pressed star'),
+              onPress: () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id}),
             },
             
           ]}

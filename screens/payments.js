@@ -1,50 +1,47 @@
 import React, { useState } from 'react';
-import { FlatList, View } from 'react-native';
-import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm, CircleButton, CustomButton } from '../components';
-import currencyFormat from '../utils';
-import { Provider, Portal, Modal } from 'react-native-paper';
+import { View, FlatList } from 'react-native';
+import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, CustomButton, CircleButton } from '../components';
 import { useForm, Controller } from 'react-hook-form';
 import { carActions } from '../data';
+import { Provider, Portal, Modal } from 'react-native-paper';
+import currencyFormat from '../utils';
+import Moment from 'moment';
 
-const OutGoingScreen = ({route}) => {
-  const [list, setList] = useState(route.params.outgoings);
+const PaymentScreen = ({route}) => {
+  const [payments, setPayments] = useState(route.params.payments)
   const {carId} = route.params;
   const [visible, setVisible] = useState(false);
-  const [defaultItem, setDefaultItem] = useState({name: '', value: '', id: ''});
+  const [defaultItem, setDefaultItem] = useState(
+    {
+      value: '',
+      id: '',
+      createdDate: new Date()
+    }
+  )
 
   const reset = () => {
-   setDefaultItem({
-      name: '',
+    setDefaultItem({
       value: '',
-      id: ''
-    }); 
+      id: '',
+      createdDate: new Date()
+    })
   }
 
   const showModal = () => setVisible(true);
   const hideModal = () => {
     setVisible(false);
     reset();
-  } 
+  }
 
   const { handleSubmit, errors, control } = useForm({});
 
-  const onSubmit = async data => {
-    data.id = Math.round(Math.random() * 1000000) + '';
-    data.value = parseInt(data.value);
-    const previuosData = list;
-    previuosData.push(data);
-    setList(previuosData);
-    await carActions.updateCarById({id: carId, outgoings: previuosData });
-    hideModal();
-}
-
   const removeItem = async id => {
-    if(!id) {
+    if(!id){
       return;
     }
-    const filteredData = list.filter(item => item.id !== id);
-    await carActions.updateCarById({id:carId, outgoings: filteredData});
-    setList(filteredData);
+    const filteredData = payments.filter(item => item.id !== id);
+    await carActions.updateCarById({id:carId, payments: filteredData});
+    setPayments(filteredData);
   }
 
   const containerStyle = {
@@ -52,15 +49,34 @@ const OutGoingScreen = ({route}) => {
     padding: 15, 
   };
 
+  const onSubmit = async data => {
+    data.value = parseInt(data.value);
+    data.id =  Math.round(Math.random() * 1000000) + '';
+    data.createdDate = new Date();
+
+    const previuosData = payments;
+    previuosData.push(data);
+    setPayments(previuosData);
+
+    await carActions.updateCarById({
+      id: carId,
+      payments: payments,
+    });
+
+    hideModal();
+}
+
   const ItemList = (item) => {
     return(
       <View 
         style={{flexDirection: 'row', padding: 15}}>
           <View style={{flex: 2, justifyContent: 'center'}}>
-            <CustomText fontSize='medium'>{item.name}</CustomText>
+            <CustomText fontSize='medium'>{currencyFormat(item.value)}</CustomText>
           </View>
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <CustomText fontSize='medium'>{currencyFormat(item.value)}</CustomText>
+            <CustomText fontSize='medium'>
+              {Moment(item.createdDate).format('DD MMM YYYY')}
+            </CustomText>
           </View>
           <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-around'}}>
             <CircleButton onPress={() => removeItem(item.id)} icon='close'/>
@@ -69,33 +85,33 @@ const OutGoingScreen = ({route}) => {
     );
   }
 
-  const NoOutgoingsYet = () => {
+  const NoPaymentsYet = () => {
     return(
       <View style={{alignItems: 'center', padding: 15}}>
-        <View style={{marginTop: 220}}>
-          <CustomText
-            style={{padding: 15}}
-            fontSize='medium'
-            fontType='bold'>
-            Presiona aqui para agregar un gasto
-          </CustomText>
+          <View style={{marginTop: 220}}>
+            <CustomText
+              style={{padding: 15}}
+              fontSize='medium'
+              fontType='bold'>
+              Presiona aqui para agregar un pago
+            </CustomText>
+          </View>
+          <CustomFab
+            icon='plus'
+            onPress={showModal}
+          />
         </View>
-        <CustomFab
-          icon='plus'
-          onPress={showModal}
-        />
-      </View>
     )
   }
 
   return(
     <Provider>
-      <View style={{flex: 1}}>
-        <CustomHeaderChild 
-          title='Gastos'
+      <Portal>
+        <CustomHeaderChild
+          title='Pagos'
         />
         {
-          list && list.length > 0 ? 
+          payments && payments.length > 0 ?
           <View
             style={{flex: 1}}>
             <View 
@@ -111,7 +127,7 @@ const OutGoingScreen = ({route}) => {
                 </View>
             </View>
             <FlatList 
-              data={list}
+              data={payments}
               renderItem={({item}) =>ItemList(item)}
             />
             <CustomFab
@@ -121,11 +137,9 @@ const OutGoingScreen = ({route}) => {
             />
           </View>
           :
-          <NoOutgoingsYet />
+          <NoPaymentsYet />
         }
-      </View>
-      {/* Add Outgoing Modal  */}
-      <Portal>
+        {/* Add Outgoing Modal  */}
         <Modal 
           visible={visible} 
           onDismiss={hideModal} 
@@ -136,30 +150,14 @@ const OutGoingScreen = ({route}) => {
               style={{paddingBottom: 15, paddingTop: 15}} 
               fontSize='medium'
               fontType='bold'>
-              Describe el gasto
+              Indica el monto del pago
             </CustomText>
-            <Controller
-              as={CustomTextInput}
-              name='name'
-              onChange={args => args[0].nativeEvent.text}
-              label="Descripción"
-              maxLength={20}
-              control={control}
-              rules={{ required: true, maxLength: 20, minLength: 1}}
-              defaultValue={defaultItem.name}
-              mode='outlined'
-              autoCorrect={false}
-              autoFocus={true}
-            />
-            { errors && errors.name && errors.name.type === 'required' ? 
-              <ErrorTextForm text='Agrega una descripción' /> : null
-            }
             <Controller
               as={CustomTextInput}
               name='value'
               style={{marginTop: 15}}
               onChange={args => args[0].nativeEvent.text}
-              label='Costo'
+              label='Cantidad'
               maxLength={10}
               control={control}
               rules={{ required: true, maxLength: 10, pattern: /^[0-9]*$/i }}
@@ -186,4 +184,4 @@ const OutGoingScreen = ({route}) => {
   )
 }
 
-export default OutGoingScreen;
+export default PaymentScreen;
