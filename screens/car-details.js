@@ -59,8 +59,6 @@ const CarDetailsScreen = ({route, navigation}) => {
     }
   }
 
-  
-
   const debt = car.soldPrice - car.paymentsSum;
   const lastPaymentDate = car.status === 'soldCredit' ? Moment(car.lastPaymentDate) : Moment().startOf('day');
   const today =  Moment().startOf('day');
@@ -178,7 +176,7 @@ const CarDetailsScreen = ({route, navigation}) => {
             {
               icon: 'check',
               label: 'Vender',
-              onPress: () => console.log('Pressed star'),
+              onPress: () => navigation.navigate('SellCar', {carId: car.id}),
             },
             {
               icon: 'currency-usd',

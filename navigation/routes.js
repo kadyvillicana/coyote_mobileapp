@@ -11,6 +11,7 @@ import CarDetailsScreen from '../screens/car-details';
 import EditCarScreen from '../screens/edit-car';
 import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
+import SellCarScreen from '../screens/sell-car';
 import SoldHistoryScreen from '../screens/sold-history';
 import OutGoingScreen from '../screens/outgoings';
 
@@ -57,6 +58,7 @@ function HomeStackScreen(){
             <HomeStack.Screen name='AddCar' component={AddCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
             <HomeStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
+            <HomeStack.Screen name='SellCar' component={SellCarScreen} options={customHeaderBar} />
         </HomeStack.Navigator>
     )
 }

@@ -91,5 +91,19 @@ export default (realmInstance) => {
     getAllSoldCars: () => {
         return realmInstance.objects(CarModel.getCarModelName()).filtered('status != $0 SORT(purchaseDate DESC)', 'available');
     },
+
+    clientSuggestions: (query) => {
+        return new Promise((resolve, reject) => {
+            try {
+                if(!query){
+                    resolve([]);
+                }
+                const clientSuggestions = realmInstance.objects(CarModel.getCarModelName()).filtered(`clientName CONTAINS[c] "${query}"`);
+                resolve(_.groupBy(clientSuggestions, 'clientName'));
+            } catch(e) {
+                reject(e)
+            }
+        })
+    },
   }
 }
