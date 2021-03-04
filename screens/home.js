@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import { CustomView, CustomHeader, CustomText, CarCardVertical, MainScreenContainer, CustomFab } from '../components';
 import { carActions } from '../data';
-import { FAB } from 'react-native-paper';
 import currencyFormat from '../utils';
 
 const HomeScreen = ({navigation}) => {
@@ -82,7 +81,7 @@ const HomeScreen = ({navigation}) => {
           data={list}
           renderItem={
             ({ item }) =>
-            <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
+            <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
               <CarCardVertical
                 title={item.make + ' ' + item.version + ' ' + item.model}
                 subTitleLeft='Costo total'

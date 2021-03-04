@@ -24,7 +24,7 @@ const SoldHistoryScreen = ({navigation}) => {
     return () => mounted = false;
   }, []);
 
-  parseStatus = (status) => {
+  const parseStatus = (status) => {
     switch(status){
       case 'sold':
         return 'contado'
@@ -52,7 +52,7 @@ const SoldHistoryScreen = ({navigation}) => {
             data={list}
             renderItem={
                 ({ item }) =>
-                <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {car: item})}>
+                <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
                     <CarCardVertical 
                       title={item.make + ' ' + item.version + ' ' + item.model}
                       subTitleLeft='Utilidad'

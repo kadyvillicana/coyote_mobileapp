@@ -62,6 +62,20 @@ export default (realmInstance) => {
         });
     },
 
+    deleteCarById: id => {
+        return new Promise((resolve, reject) => {
+            try {
+                const car = realmInstance.objects(CarModel.getCarModelName()).filtered('id = $0', id);
+                realmInstance.write(() => {
+                    const deleteCar = realmInstance.delete(car);
+                    resolve(deleteCar);
+                })
+            }catch(e) {
+                reject(e);
+            }
+        })
+    },
+
     getCarById: id => {
         return realmInstance.objects(CarModel.getCarModelName()).filtered('id = $0', id)[0];
     },

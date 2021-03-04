@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Portal, Provider } from 'react-native-paper';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
@@ -9,14 +9,27 @@ import { carActions } from '../data';
 
 const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();
-  const [car, setCar] = useState(route.params.car);
+  const carId = route.params.carId;
+  const [car, setCar] = useState({});
+
+  useEffect(() => {
+    let mounted = true;
+    async function getCar() {
+      const car = await carActions.getCarById(carId);
+      if(mounted) {
+        setCar(car);
+      }
+    }
+    getCar();
+    return () => mounted = false;
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {
       let isActive = true;
       async function getCars(){
         try{
-          const _car = await carActions.getCarById(car.id)
+          const _car = await carActions.getCarById(carId)
           if(isActive) {
             setCar(_car);
           }
@@ -39,7 +52,7 @@ const CarDetailsScreen = ({route, navigation}) => {
     }
   }
 
-
+  
 
   const debt = car.soldPrice - car.paymentsSum;
   const lastPaymentDate = car.status === 'soldCredit' ? Moment(car.lastPaymentDate) : Moment().startOf('day');
@@ -51,6 +64,7 @@ const CarDetailsScreen = ({route, navigation}) => {
       <Portal>
         <CustomHeaderChild 
           title={car.make + ' ' + car.version + ' ' + car.model}
+          onPressRightButton={() => navigation.navigate('EditCar', {carId})}
         />
       {/* Container Car Details */}
       <View style={{backgroundColor: colors.backgroundVariant}}>
