@@ -61,6 +61,7 @@ const AddCarScreen = ({navigation}) => {
               name='model'
               onChange={args => args[0].nativeEvent.text}
               label='Modelo'
+              maxLength={4}
               control={control}
               mode='outlined'
               keyboardType='numeric'

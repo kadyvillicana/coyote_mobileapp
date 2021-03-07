@@ -10,3 +10,5 @@ export {default as CustomFab} from './custom-fab';
 export {default as ErrorTextForm} from './error-text-form';
 export {default as CircleButton} from './circle-button';
 export {default as CustomButton} from './custom-button';
+export {default as ConfirmationModal} from './confirmation-modal';
+

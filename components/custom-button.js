@@ -4,7 +4,7 @@ import { useTheme } from '@react-navigation/native';
 
 const CustomButton = (props) => {
   const {colors} = useTheme();
-  const {style, children, mode} = props;
+  const {style, children, mode, warningColor} = props;
   return (
     <Button
       {...props}
@@ -12,6 +12,7 @@ const CustomButton = (props) => {
       style=
         {[
             style,
+            {backgroundColor: warningColor ? colors.error : colors.primary}
         ]}
       theme=
         {{ 
