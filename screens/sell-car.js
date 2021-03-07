@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Portal, Provider, Switch } from 'react-native-paper';
-import { CircleButton, CustomButton, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm } from '../components';
+import { CircleButton, CustomButton, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm, ConfirmationModal } from '../components';
 import Moment from 'moment';
 import { carActions } from '../data';
 import { useForm, Controller } from 'react-hook-form';
+import currencyFormat from '../utils';
 
 
 const SellCarScreen = ({route, navigation}) => {
 
   const carId = route.params.carId;
+  const [soldPriceModal, setSoldPriceModal] = useState(null);
   const [clientSuggestions, setClientSuggestions] = useState([]);
   const [client, setClient] = useState('');
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const [date, setDate] = useState(new Date(Moment().add(1, 'month')));
   const onToggleSwitch = () => {setIsSwitchOn(!isSwitchOn); removeClientAndClearSearch();};
+  // Confirmation Modal
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(false);
+  const showConfirmationModal = (data) => {
+    setConfirmationModalVisible(true);
+    setSoldPriceModal(parseInt(data.soldPrice));
+  };
+  const hideModal = () => setConfirmationModalVisible(false);
 
   const { handleSubmit, errors, control } = useForm({});
 
@@ -29,12 +38,11 @@ const SellCarScreen = ({route, navigation}) => {
   }
 
   const onSubmit = async data => {
-    const soldPrice = parseInt(data.soldPrice);
     const _client = isSwitchOn ? client && client.length > 0 ? client : data.clientName : null;
 
     await carActions.updateCarById({
       id: carId,
-      soldPrice,
+      soldPrice: soldPriceModal,
       clientName: isSwitchOn ? _client : '', 
       dueDate: date,
       soldDate: new Date(),
@@ -147,15 +155,23 @@ const SellCarScreen = ({route, navigation}) => {
               style={{marginTop: 15}}
             />
             {errors.soldPrice && errors.soldPrice.type === 'required' ?
-            <ErrorTextForm errorText='Ingresa una cantidad' /> : null}  
+            <ErrorTextForm text='Ingresa una cantidad' /> : null}
+            {errors.soldPrice && errors.soldPrice.type == 'pattern' ?
+            <ErrorTextForm text='Ingresa solo números'/>: null}  
           </View>
           <View>
             <CustomButton style={{padding: 15, marginTop: 15}}
-              onPress={handleSubmit(onSubmit)}>
+              onPress={handleSubmit(showConfirmationModal)}>
               Vender
             </CustomButton>
           </View>
         </View>
+        <ConfirmationModal 
+          visible={confirmationModalVisible}
+          onDismiss={hideModal}
+          title={`¿Está seguro de vender este vehículo por la cantidad de ${currencyFormat(soldPriceModal, '')}?`}
+          onSuccess={onSubmit}
+        />
       </Portal>
     </Provider>
   )
