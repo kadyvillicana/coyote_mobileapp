@@ -18,6 +18,46 @@ const CarDetailsScreen = ({route, navigation}) => {
 
   const { open } = state;
 
+  useEffect(() => {
+    let mounted = true;
+    async function getCar() {
+      const car = await carActions.getCarById(carId);
+      if(mounted) {
+        setCar(car);
+      }
+    }
+    getCar();
+    return () => mounted = false;
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+      async function getCars(){
+        try{
+          const _car = await carActions.getCarById(carId)
+          if(isActive) {
+            setCar(_car);
+          }
+        } catch(e) {
+        }
+      }
+      getCars();
+      return () => isActive = false;
+    }, [])
+);
+
+  const parseStatus = (status) => {
+    switch(status){
+      case 'available':
+        return 'Disponible'
+      case 'sold':
+        return 'de contado'
+      case 'soldCredit':
+        return 'a crédito'
+    }
+  }
+
   const FABGroupActions = (status) => {
     switch(status) {
       case 'available':
@@ -69,46 +109,25 @@ const CarDetailsScreen = ({route, navigation}) => {
             onPress: () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id}),
           },
         ];
-    }
-  }
-
-  useEffect(() => {
-    let mounted = true;
-    async function getCar() {
-      const car = await carActions.getCarById(carId);
-      if(mounted) {
-        setCar(car);
-      }
-    }
-    getCar();
-    return () => mounted = false;
-  }, []);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      let isActive = true;
-      async function getCars(){
-        try{
-          const _car = await carActions.getCarById(carId)
-          if(isActive) {
-            setCar(_car);
-          }
-        } catch(e) {
-        }
-      }
-      getCars();
-      return () => isActive = false;
-    }, [])
-);
-
-  const parseStatus = (status) => {
-    switch(status){
-      case 'available':
-        return 'Disponible'
-      case 'sold':
-        return 'de contado'
-      case 'soldCredit':
-        return 'a crédito'
+      default:
+        return [
+          {
+            icon: 'currency-usd',
+            label: 'Gastos',
+            onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
+          },
+          { 
+            icon: 'pencil-outline',
+            label: 'Editar',
+            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+          },
+          {
+            icon: 'check',
+            label: 'Vender',
+            onPress: () => navigation.navigate('SellCar', {carId: car.id}),
+          },
+        ]
+        break;
     }
   }
 

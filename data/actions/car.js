@@ -89,7 +89,8 @@ export default (realmInstance) => {
     },
 
     getAllSoldCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName()).filtered('status != $0 SORT(purchaseDate DESC)', 'available');
+        return realmInstance.objects(CarModel.getCarModelName())
+            .filtered('status != $0 SORT(soldDate DESC)', 'available');
     },
 
     clientSuggestions: (query) => {

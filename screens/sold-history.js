@@ -4,6 +4,7 @@ import { CustomView, CustomText, MainScreenContainer, CustomHeader, CarCardVerti
 import { carActions } from '../data';
 import Moment from 'moment';
 import currencyFormat from '../utils';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SoldHistoryScreen = ({navigation}) => {
 
@@ -23,6 +24,24 @@ const SoldHistoryScreen = ({navigation}) => {
     getCars();
     return () => mounted = false;
   }, []);
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      let mounted = true;
+      async function getCars(){
+        try {
+          const cars = await carActions.getAllSoldCars();
+          if(mounted){
+            setList(cars);
+          }
+        } catch(e){
+
+        }
+      }
+      getCars();
+      return () => mounted = false;
+    }, [])
+  );
 
   const parseStatus = (status) => {
     switch(status){
