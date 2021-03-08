@@ -16,6 +16,7 @@ const SellCarScreen = ({route, navigation}) => {
   const [client, setClient] = useState('');
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const [date, setDate] = useState(new Date(Moment().add(1, 'month')));
+  const [clientError, setClientError] = useState(false);
   const onToggleSwitch = () => {setIsSwitchOn(!isSwitchOn); removeClientAndClearSearch();};
   // Confirmation Modal
   const [confirmationModalVisible, setConfirmationModalVisible] = useState(false);
@@ -28,22 +29,33 @@ const SellCarScreen = ({route, navigation}) => {
   const { handleSubmit, errors, control } = useForm({});
 
   const handleInput = async data => {
+    const newClient = {}
+    newClient[data] = 'new';
     const res = await carActions.clientSuggestions(data)
-    setClientSuggestions(res);
+
+    setClientSuggestions({...newClient, ...res});
   }
 
   const removeClientAndClearSearch = () => {
     setClient('');
+    setClientError(false);
     setClientSuggestions([]);
   }
 
   const onSubmit = async data => {
-    const _client = isSwitchOn ? client && client.length > 0 ? client : data.clientName : null;
-
+    let clientName = '';
+    if(isSwitchOn){
+      if(!client || client.length === 0) {
+        setClientError(true);
+        hideModal();
+        return
+      }
+      clientName = client;
+    }
     await carActions.updateCarById({
       id: carId,
       soldPrice: soldPriceModal,
-      clientName: isSwitchOn ? _client : '', 
+      clientName: clientName,
       dueDate: date,
       soldDate: new Date(),
       status: isSwitchOn ? 'soldCredit' : 'sold'
@@ -55,7 +67,7 @@ const SellCarScreen = ({route, navigation}) => {
   const Item = ({item}) => {
     return(
       <TouchableOpacity
-          onPress={() => setClient(item)}>
+          onPress={() => {setClient(item); setClientError(false);}}>
           <View style={{backgroundColor: '#2b3137', padding: 15, borderRadius: 5, marginTop: 15}}>
             <View style={{flexDirection: 'row', justifyContent: "space-between"}}>
               <View style={{justifyContent:'center'}}>
@@ -64,7 +76,7 @@ const SellCarScreen = ({route, navigation}) => {
                   </CustomText>
               </View>
               <View>
-                <CircleButton icon='checkmark-outline' primary />
+                <CircleButton icon='checkmark-outline' primary/>
               </View>
             </View>
           </View>
@@ -110,7 +122,7 @@ const SellCarScreen = ({route, navigation}) => {
                         </CustomText>
                       </View>
                       <View>
-                        <CircleButton icon='close'/>
+                        <CircleButton icon='close' onPress={removeClientAndClearSearch}/>
                       </View>
                     </View>
                   </View>
@@ -132,6 +144,8 @@ const SellCarScreen = ({route, navigation}) => {
                   data={Object.keys(clientSuggestions)}
                   renderItem={({item}) => <Item item={item}/>}
                 />
+                {clientError ?
+                <ErrorTextForm text='Debes seleccionar un cliente' /> : null}
               </View>
               : null
           }
