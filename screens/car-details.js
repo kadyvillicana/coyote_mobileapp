@@ -18,6 +18,59 @@ const CarDetailsScreen = ({route, navigation}) => {
 
   const { open } = state;
 
+  const FABGroupActions = (status) => {
+    switch(status) {
+      case 'available':
+        return [
+          {
+            icon: 'currency-usd',
+            label: 'Gastos',
+            onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
+          },
+          { 
+            icon: 'pencil-outline',
+            label: 'Editar',
+            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+          },
+          {
+            icon: 'check',
+            label: 'Vender',
+            onPress: () => navigation.navigate('SellCar', {carId: car.id}),
+          },
+        ];
+      case 'sold':
+        return [
+          { 
+            icon: 'pencil-outline',
+            label: 'Editar',
+            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+          },
+          {
+            icon: 'currency-usd',
+            label: 'Gastos',
+            onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
+          },
+        ];
+      case 'soldCredit':
+        return [
+          { 
+            icon: 'pencil-outline',
+            label: 'Editar',
+            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+          },
+          {
+            icon: 'currency-usd',
+            label: 'Gastos',
+            onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
+          },
+          {
+            icon: 'credit-card-outline',
+            label: 'Pagos',
+            onPress: () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id}),
+          },
+        ];
+    }
+  }
 
   useEffect(() => {
     let mounted = true;
@@ -148,8 +201,10 @@ const CarDetailsScreen = ({route, navigation}) => {
                   </CustomText>
               </View>
               :
-              <View>
-                <CustomText fontType='light' style={[{color: colors.text}]}>
+              <View style={{padding: 15}}>
+                <CustomText 
+                  fontSize='medium'
+                  fontType='light'>
                     Han pasado {daysDiff} días desde el ultimo pago y aun se deben 
                     <CustomText fontType='bold' 
                     style={[
@@ -168,29 +223,7 @@ const CarDetailsScreen = ({route, navigation}) => {
           icon={open ? 'close' : 'dots-vertical'}
           fabStyle={{backgroundColor: colors.primary}}
           theme={{dark: true}}
-          actions={[
-            { 
-              icon: 'pencil-outline',
-              label: 'Editar',
-              onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
-            },
-            {
-              icon: 'check',
-              label: 'Vender',
-              onPress: () => navigation.navigate('SellCar', {carId: car.id}),
-            },
-            {
-              icon: 'currency-usd',
-              label: 'Gastos',
-              onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
-            },
-            {
-              icon: 'credit-card-outline',
-              label: 'Pagos',
-              onPress: () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id}),
-            },
-            
-          ]}
+          actions={FABGroupActions(car.status)}
           onStateChange={onStateChange}
           onPress={() => {
             if (open) {
