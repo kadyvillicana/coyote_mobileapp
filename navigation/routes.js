@@ -80,6 +80,8 @@ function SoldHistoryStackScreen(){
             <SoldHistoryStack.Screen name='Home' component={SoldHistoryScreen} options={{headerShown: false}} />
             <SoldHistoryStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
             <SoldHistoryStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar}/>
+            <SoldHistoryStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
+            <SoldHistoryStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
         </SoldHistoryStack.Navigator>
     )
 }
