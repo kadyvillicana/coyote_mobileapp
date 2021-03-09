@@ -62,15 +62,15 @@ const CarDetailsScreen = ({route, navigation}) => {
     switch(status) {
       case 'available':
         return [
+          { 
+            icon: 'pencil-outline',
+            label: 'Editar',
+            onPress: () => navigation.navigate('EditCar', {carId: car}) 
+          },
           {
             icon: 'currency-usd',
             label: 'Gastos',
             onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
-          },
-          { 
-            icon: 'pencil-outline',
-            label: 'Editar',
-            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
           },
           {
             icon: 'check',
@@ -83,7 +83,7 @@ const CarDetailsScreen = ({route, navigation}) => {
           { 
             icon: 'pencil-outline',
             label: 'Editar',
-            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+            onPress: () => navigation.navigate('EditCar', {carId: car}) 
           },
           {
             icon: 'currency-usd',
@@ -96,7 +96,7 @@ const CarDetailsScreen = ({route, navigation}) => {
           { 
             icon: 'pencil-outline',
             label: 'Editar',
-            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
+            onPress: () => navigation.navigate('EditCar', {carId: car}) 
           },
           {
             icon: 'currency-usd',
@@ -111,15 +111,15 @@ const CarDetailsScreen = ({route, navigation}) => {
         ];
       default:
         return [
+          { 
+            icon: 'pencil-outline',
+            label: 'Editar',
+            onPress: () => navigation.navigate('EditCar', {carId: car}) 
+          },
           {
             icon: 'currency-usd',
             label: 'Gastos',
             onPress: () => navigation.navigate('Outgoings', {outgoings: car.outgoingsList ? car.outgoingsList : [], carId: car.id}),
-          },
-          { 
-            icon: 'pencil-outline',
-            label: 'Editar',
-            onPress: () => navigation.navigate('EditCar', {carId: car.id}) 
           },
           {
             icon: 'check',

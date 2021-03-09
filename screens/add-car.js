@@ -94,7 +94,7 @@ const AddCarScreen = ({navigation}) => {
               as={CustomTextInput}
               name='purchasePrice'
               onChange={args => args[0].nativeEvent.text}
-              label='Precio de compa'
+              label='Precio de compra'
               control={control}
               mode='outlined'
               keyboardType='numeric'
