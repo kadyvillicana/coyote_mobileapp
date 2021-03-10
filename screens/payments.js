@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, CustomButton, CircleButton } from '../components';
+import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, CustomButton, CircleButton, ConfirmationModal } from '../components';
 import { useForm, Controller } from 'react-hook-form';
 import { carActions } from '../data';
 import { Provider, Portal, Modal } from 'react-native-paper';
@@ -33,15 +33,27 @@ const PaymentScreen = ({route}) => {
     reset();
   }
 
+  const [removeItemId, setRemoveItemId] = useState(null);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(false);
+  const showConfirmationModal = (itemId) => {
+    setConfirmationModalVisible(true)
+    setRemoveItemId(itemId);
+  };
+  const hideConfirmationModal = () => {
+    setConfirmationModalVisible(false);
+    setRemoveItemId(null);
+  }
+
   const { handleSubmit, errors, control } = useForm({});
 
   const removeItem = async id => {
-    if(!id){
+    if(!removeItemId){
       return;
     }
-    const filteredData = payments.filter(item => item.id !== id);
+    const filteredData = payments.filter(item => item.id !== removeItemId);
     await carActions.updateCarById({id:carId, payments: filteredData});
     setPayments(filteredData);
+    hideConfirmationModal();
   }
 
   const containerStyle = {
@@ -80,7 +92,7 @@ const PaymentScreen = ({route}) => {
             </CustomText>
           </View>
           <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-around'}}>
-            <CircleButton onPress={() => removeItem(item.id)} icon='close'/>
+            <CircleButton onPress={() => showConfirmationModal(item.id)} icon='close'/>
           </View>
       </View>
     );
@@ -180,6 +192,12 @@ const PaymentScreen = ({route}) => {
             </CustomButton>
           </View>
         </Modal>
+        <ConfirmationModal 
+          visible={confirmationModalVisible}
+          onDismiss={hideConfirmationModal}
+          title={`¿Está seguro de eliminar este pago?`}
+          onSuccess={removeItem}
+        />
       </Portal>
     </Provider>
   )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm, CircleButton, CustomButton } from '../components';
+import { CustomFab, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm, CircleButton, CustomButton, ConfirmationModal } from '../components';
 import currencyFormat from '../utils';
 import { Provider, Portal, Modal } from 'react-native-paper';
 import { useForm, Controller } from 'react-hook-form';
@@ -24,7 +24,18 @@ const OutGoingScreen = ({route}) => {
   const hideModal = () => {
     setVisible(false);
     reset();
-  } 
+  }
+  
+  const [removeItemId, setRemoveItemId] = useState(null);
+  const [confirmationModalVisible, setConfirmationModalVisible] = useState(false);
+  const showConfirmationModal = (itemId) => {
+    setConfirmationModalVisible(true)
+    setRemoveItemId(itemId);
+  };
+  const hideConfirmationModal = () => {
+    setConfirmationModalVisible(false);
+    setRemoveItemId(null);
+  }
 
   const { handleSubmit, errors, control } = useForm({});
 
@@ -39,12 +50,13 @@ const OutGoingScreen = ({route}) => {
 }
 
   const removeItem = async id => {
-    if(!id) {
+    if(!removeItemId) {
       return;
     }
-    const filteredData = list.filter(item => item.id !== id);
+    const filteredData = list.filter(item => item.id !== removeItemId);
     await carActions.updateCarById({id:carId, outgoings: filteredData});
     setList(filteredData);
+    hideConfirmationModal();
   }
 
   const containerStyle = {
@@ -64,7 +76,7 @@ const OutGoingScreen = ({route}) => {
             <CustomText fontSize='medium'>{currencyFormat(item.value)}</CustomText>
           </View>
           <View style={{flex: 1, flexDirection: 'row', justifyContent:'space-around'}}>
-            <CircleButton onPress={() => removeItem(item.id)} icon='close'/>
+            <CircleButton onPress={() => showConfirmationModal(item.id)} icon='close'/>
           </View>
       </View>
     );
@@ -91,6 +103,7 @@ const OutGoingScreen = ({route}) => {
 
   return(
     <Provider>
+      <Portal>
       <View style={{flex: 1}}>
         <CustomHeaderChild 
           title='Gastos'
@@ -126,62 +139,67 @@ const OutGoingScreen = ({route}) => {
         }
       </View>
       {/* Add Outgoing Modal  */}
-      <Portal>
-        <Modal 
-          visible={visible} 
-          onDismiss={hideModal} 
-          contentContainerStyle={containerStyle}
-        >
-          <View style={{justifyContent: 'center', backgroundColor: '#1b1f23', padding: 15}}>
-            <CustomText
-              style={{paddingBottom: 15, paddingTop: 15}} 
-              fontSize='medium'
-              fontType='bold'>
-              Describe el gasto
-            </CustomText>
-            <Controller
-              as={CustomTextInput}
-              name='name'
-              onChange={args => args[0].nativeEvent.text}
-              label="Descripción"
-              maxLength={20}
-              control={control}
-              rules={{ required: true, maxLength: 20, minLength: 1}}
-              defaultValue={defaultItem.name}
-              mode='outlined'
-              autoCorrect={false}
-              autoFocus={true}
-            />
-            { errors && errors.name && errors.name.type === 'required' ? 
-              <ErrorTextForm text='Agrega una descripción' /> : null
-            }
-            <Controller
-              as={CustomTextInput}
-              name='value'
-              style={{marginTop: 15}}
-              onChange={args => args[0].nativeEvent.text}
-              label='Costo'
-              maxLength={10}
-              control={control}
-              rules={{ required: true, maxLength: 10, pattern: /^[0-9]*$/i }}
-              defaultValue={defaultItem.value}
-              autoCorrect={false}
-              mode='outlined'
-              keyboardType='numeric'
-            />
-            { errors && errors.value && errors.value.type === 'required' ? 
-              <ErrorTextForm text='Agrega un costo' /> : null
-            }
-            { errors && errors.value && errors.value.type === 'pattern' ? 
-              <ErrorTextForm text='Agrega solo números' /> : null
-            }
-            <CustomButton 
-              onPress={handleSubmit(onSubmit)}
-              style={{padding: 15, marginTop: 15, marginBottom: 15}}>
-              Agregar
-            </CustomButton>
-          </View>
-        </Modal>
+      <Modal 
+        visible={visible} 
+        onDismiss={hideModal} 
+        contentContainerStyle={containerStyle}
+      >
+        <View style={{justifyContent: 'center', backgroundColor: '#1b1f23', padding: 15}}>
+          <CustomText
+            style={{paddingBottom: 15, paddingTop: 15}} 
+            fontSize='medium'
+            fontType='bold'>
+            Describe el gasto
+          </CustomText>
+          <Controller
+            as={CustomTextInput}
+            name='name'
+            onChange={args => args[0].nativeEvent.text}
+            label="Descripción"
+            maxLength={20}
+            control={control}
+            rules={{ required: true, maxLength: 20, minLength: 1}}
+            defaultValue={defaultItem.name}
+            mode='outlined'
+            autoCorrect={false}
+            autoFocus={true}
+          />
+          { errors && errors.name && errors.name.type === 'required' ? 
+            <ErrorTextForm text='Agrega una descripción' /> : null
+          }
+          <Controller
+            as={CustomTextInput}
+            name='value'
+            style={{marginTop: 15}}
+            onChange={args => args[0].nativeEvent.text}
+            label='Costo'
+            maxLength={10}
+            control={control}
+            rules={{ required: true, maxLength: 10, pattern: /^[0-9]*$/i }}
+            defaultValue={defaultItem.value}
+            autoCorrect={false}
+            mode='outlined'
+            keyboardType='numeric'
+          />
+          { errors && errors.value && errors.value.type === 'required' ? 
+            <ErrorTextForm text='Agrega un costo' /> : null
+          }
+          { errors && errors.value && errors.value.type === 'pattern' ? 
+            <ErrorTextForm text='Agrega solo números' /> : null
+          }
+          <CustomButton 
+            onPress={handleSubmit(onSubmit)}
+            style={{padding: 15, marginTop: 15, marginBottom: 15}}>
+            Agregar
+          </CustomButton>
+        </View>
+      </Modal>
+      <ConfirmationModal 
+          visible={confirmationModalVisible}
+          onDismiss={hideConfirmationModal}
+          title={`¿Está seguro de eliminar este pago?`}
+          onSuccess={removeItem}
+        />
       </Portal>
     </Provider>
   )
