@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Portal, Provider, FAB } from 'react-native-paper';
 import { useTheme, useFocusEffect } from '@react-navigation/native';
-import currencyFormat from '../utils';
-import Moment from 'moment';
 import { CustomHeaderChild, CustomText} from '../components';
 import { carActions } from '../data';
+import currencyFormat from '../utils';
+import Moment from 'moment';
 
 const CarDetailsScreen = ({route, navigation}) => {
   const {colors} = useTheme();

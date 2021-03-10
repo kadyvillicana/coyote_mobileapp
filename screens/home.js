@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { FlatList, TouchableOpacity, View } from 'react-native';
-import { CustomView, CustomHeader, CustomText, CarCardVertical, MainScreenContainer, CustomFab } from '../components';
+import { CustomHeader, CustomText, CarCardVertical, MainScreenContainer, CustomFab } from '../components';
 import { carActions } from '../data';
 import currencyFormat from '../utils';
 
@@ -41,7 +41,7 @@ const HomeScreen = ({navigation}) => {
 
   const NoData = () => {
     return(
-      <CustomView>
+      <View style={{padding: 15}}>
         <CustomHeader 
           header='Inicio'
         />
@@ -58,7 +58,7 @@ const HomeScreen = ({navigation}) => {
               onPress={() => navigation.navigate('AddCar')}
           />
         </View>
-      </CustomView>
+      </View>
     )
   }
 

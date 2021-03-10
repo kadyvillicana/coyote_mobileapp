@@ -1,4 +1,3 @@
-export {default as CustomView} from './custom-view';
 export {default as CustomText} from './custom-text';
 export {default as CustomHeader} from './custom-header';
 export {default as CustomActivityIndicator} from './custom-activity-indicator';

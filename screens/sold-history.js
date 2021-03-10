@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, FlatList, View } from 'react-native';
-import { CustomView, CustomText, MainScreenContainer, CustomHeader, CarCardVertical } from '../components';
+import { CustomText, MainScreenContainer, CustomHeader, CarCardVertical } from '../components';
 import { carActions } from '../data';
 import Moment from 'moment';
 import currencyFormat from '../utils';
@@ -54,7 +54,8 @@ const SoldHistoryScreen = ({navigation}) => {
 
   const MainBody = () => {
     return(
-      <CustomView>
+      <View
+        style={{padding: 15}}>
         <CustomHeader 
           header='Historial'
           subHeader='Fecha de última venta: 20 ene 21'
@@ -66,7 +67,7 @@ const SoldHistoryScreen = ({navigation}) => {
             {list.length} Vehículos vendidos
           </CustomText>
         </View>
-        <View style={{marginBottom: 130}}>
+        <View style={{marginBottom: 230}}>
           <FlatList
             data={list}
             renderItem={
@@ -84,7 +85,7 @@ const SoldHistoryScreen = ({navigation}) => {
             keyExtractor={item => item.id}
           />
         </View>
-      </CustomView>
+      </View>
     )
   }
 
