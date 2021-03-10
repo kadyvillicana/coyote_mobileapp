@@ -46,6 +46,7 @@ const PaymentScreen = ({route}) => {
 
   const containerStyle = {
     margin: 15,
+    marginTop: -100,
     padding: 15, 
   };
 
