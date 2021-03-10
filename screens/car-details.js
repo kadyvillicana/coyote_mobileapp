@@ -135,13 +135,13 @@ const CarDetailsScreen = ({route, navigation}) => {
   const lastPaymentDate = car.status === 'soldCredit' ? Moment(car.lastPaymentDate) : Moment().startOf('day');
   const today =  Moment().startOf('day');
   const daysDiff = lastPaymentDate.diff(today, 'days', false) * -1;
+  const daysDiffNoPayment = Moment(car.soldDate).diff(today, 'days', false) * -1;
 
   return(
     <Provider>
       <Portal>
         <CustomHeaderChild 
           title={car.make + ' ' + car.version + ' ' + car.model}
-          // onPressRightButton={() => navigation.navigate('EditCar', {carId})}
         />
       {/* Container Car Details */}
       <View style={{backgroundColor: colors.backgroundVariant}}>
@@ -207,31 +207,63 @@ const CarDetailsScreen = ({route, navigation}) => {
         <View>
           {
             car.paymentsSum === 0 ?
-            <View style={{padding: 15}}>
-              <CustomText fontSize='medium' fontType='bold' style={[{color: colors.error}]}>
-                Aún no han hecho ningun pago
-              </CustomText>
+            <View style={{backgroundColor: colors.backgroundVariant}}>
+              <View style={{flexDirection:'row'}}>
+                <TouchableOpacity
+                  onPress={ () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id})}
+                  style={[styles.detailContainer, {
+                    borderLeftWidth:0,
+                    borderTopWidth: 0,
+                    borderRightWidth:0, borderColor: colors.border} ]}>
+                  <CustomText style={[{color: colors.error}]}>
+                    Aún no se han realizado pagos
+                  </CustomText>
+                </TouchableOpacity>
+              </View>
             </View>
             :
             car.soldPrice === car.paymentsSum ? 
-              <View style={{padding: 15}}>
-                  <CustomText fontSize='medium' fontType='bold' style={[{color: colors.green}]}>
-                     El vehículo ha sido pagado el día {Moment(lastPaymentDate).format('DD MMM YYYY')}
+            <View style={{padding: 15}}>
+              <CustomText fontSize='medium' fontType='bold' style={[{color: colors.green}]}>
+                 El vehículo ha sido pagado el día {Moment(lastPaymentDate).format('DD MMM YYYY')}
+              </CustomText>
+            </View>
+            :
+            <View style={{backgroundColor: colors.backgroundVariant}}>
+              <View style={{flexDirection: 'row'}}> 
+                <TouchableOpacity
+                  onPress={ () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id})}
+                  style={[styles.detailContainer, {
+                    borderLeftWidth:0,
+                    borderTopWidth: 0,
+                    borderRightWidth:1, borderColor: colors.border} ]}>
+                  <CustomText fontSize='small' secondaryColor>Deuda</CustomText>
+                  <CustomText fontType='bold' 
+                    style={[,
+                      debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}>{
+                      currencyFormat(debt)}
                   </CustomText>
+                </TouchableOpacity>
+                <View
+                  style={[styles.detailContainer, {
+                    borderLeftWidth:0,
+                    borderTopWidth: 0,
+                    borderRightWidth:0, borderColor: colors.border} ]}>
+                  <CustomText fontSize='small' secondaryColor>Días desde último pago</CustomText>
+                  <CustomText>{daysDiff}</CustomText>
+                </View>
               </View>
-              :
-              <View style={{padding: 15}}>
-                <CustomText 
-                  fontSize='medium'
-                  fontType='light'>
-                    Han pasado {daysDiff} días desde el ultimo pago y aun se deben 
-                    <CustomText fontType='bold' 
-                    style={[
-                        {color: colors.text},
-                        debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}> {currencyFormat(debt)} </CustomText>
-                    del vehículo
-                </CustomText>
-              </View>
+              {/* <CustomText 
+                fontSize='medium'
+                fontType='light'>
+                  Han pasado {daysDiff} días desde el ultimo pago y aun se deben 
+                  <CustomText fontType='bold' 
+                  style={[
+                      {color: colors.text},
+                      debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}> {currencyFormat(debt)} </CustomText>
+                  del vehículo
+              </CustomText> */}
+            </View>
           }
         </View>
         : null
