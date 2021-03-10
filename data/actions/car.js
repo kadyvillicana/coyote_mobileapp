@@ -106,5 +106,20 @@ export default (realmInstance) => {
             }
         })
     },
+
+    getCarsByPeriod: (startDate, endDate) => {
+        return new Promise((resolve, reject) => {
+            try{
+                if(!startDate || !endDate){
+                    resolve([]);
+                }
+                const allCars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                .filtered('status != $0 AND soldDate >= $1 AND soldDate <= $2 SORT(soldDate DESC)', 'available', new Date(startDate), new Date(endDate)));
+                resolve(allCars);
+            }catch(e) {
+                reject(e)
+            }
+        })
+    }
   }
 }

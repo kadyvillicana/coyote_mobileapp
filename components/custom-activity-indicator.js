@@ -7,7 +7,7 @@ import { View } from 'react-native';
 export default function CustomActivityIndicator(){
     const theme = useTheme();
     return (
-        <View style={{justifyContent: 'center',}}>
+        <View style={{flex: 1, justifyContent: 'center',}}>
             <ActivityIndicator animating={true}  color={theme.colors.primary}/>
         </View>
     )
