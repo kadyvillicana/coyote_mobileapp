@@ -8,7 +8,7 @@ const CustomHeaderChild = ({title, onPressRightButton}) => {
   const {colors} = useTheme();
   return(
     <View>
-      <View style={{backgroundColor: colors.primary, paddingTop: 50, flexDirection:'row'}}>
+      <View style={{backgroundColor: colors.primary, paddingTop: 75, flexDirection:'row'}}>
         <View style={{flex: 6}}>
           <CustomText
             numberOfLines={1}

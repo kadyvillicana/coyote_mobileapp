@@ -19,7 +19,7 @@ const CustomHeader = ({header, subHeader}) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: 15,
+    paddingTop: 30,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     paddingBottom: 30,
