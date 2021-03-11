@@ -192,10 +192,12 @@ const CarDetailsScreen = ({route, navigation}) => {
                 <CustomText fontSize='small' secondaryColor>Vendida en</CustomText>
                 <CustomText>{currencyFormat(car.soldPrice)}</CustomText>
               </View>
-              <View style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
+              <TouchableOpacity 
+                onPress={() => navigation.navigate('ChangeDate', {car: car})}
+                style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Fecha de venta</CustomText>
                 <CustomText>{Moment(car.soldDate).format('DD MMM')}</CustomText>
-              </View>
+              </TouchableOpacity>
             </View>
           </View> 
         </View>

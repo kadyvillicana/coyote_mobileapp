@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // SCREENS
 import AddCarScreen from '../screens/add-car';
 import CarDetailsScreen from '../screens/car-details';
+import ChangeDateScreen from '../screens/change-date';
 import EditCarScreen from '../screens/edit-car';
 import HomeScreen from '../screens/home';
 import RevenueScreen from '../screens/revenue';
@@ -58,6 +59,7 @@ function HomeStackScreen(){
             <HomeStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
             <HomeStack.Screen name='AddCar' component={AddCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
+            <HomeStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
             <HomeStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='SellCar' component={SellCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
@@ -80,6 +82,7 @@ function SoldHistoryStackScreen(){
             <SoldHistoryStack.Screen name='Home' component={SoldHistoryScreen} options={{headerShown: false}} />
             <SoldHistoryStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
             <SoldHistoryStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar}/>
+            <SoldHistoryStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
             <SoldHistoryStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <SoldHistoryStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
         </SoldHistoryStack.Navigator>
