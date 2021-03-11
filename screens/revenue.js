@@ -119,6 +119,12 @@ const RevenueScreen = () => {
                 </CustomText>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => setNewPeriod(12)}>
+                <CustomText style={[styles.periodBox, {borderColor: '#fed42a'}]}>
+                  1 año
+                </CustomText>
+              </TouchableOpacity>
+              <TouchableOpacity
                 onPress={() => setNewPeriod(0)}>
                 <CustomText style={[styles.periodBox, {borderColor: '#fed42a'}]}>
                   Este mes
