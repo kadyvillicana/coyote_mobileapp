@@ -76,7 +76,7 @@ const SoldHistoryScreen = ({navigation}) => {
                     <CarCardVertical 
                       title={item.make + ' ' + item.version + ' ' + item.model}
                       subTitleLeft='Utilidad'
-                      subTitleTextLeft={currencyFormat(item.soldPrice - item.purchasePricePlusOutgoings)}
+                      subTitleTextLeft={currencyFormat(item.carRevenue)}
                       subTitleRight='Fecha de Venta'
                       subTitleTextRight={Moment(item.soldDate).format('DD MMM') + ' (' + parseStatus(item.status) + ')'}
                     item={item}/>

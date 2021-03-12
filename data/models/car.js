@@ -61,4 +61,8 @@ export default class CarModel {
         }
         return sortedPayments[sortedPayments.length - 1].createdDate;
     }
+
+    get carRevenue(){
+        return this.soldPrice - this.purchasePricePlusOutgoings;
+    }
 };

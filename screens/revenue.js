@@ -14,6 +14,7 @@ const RevenueScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [firstDayMonth, setFirstDayMonth] = useState(Moment().startOf('month')) 
   const [lastDayMonth, setLastDayMonth] = useState(Moment().endOf('month'));
+  const [revenue, setRevenue] = useState(0);
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -29,6 +30,7 @@ const RevenueScreen = () => {
     const newDate = Moment(today).startOf('month').subtract(period, 'M');
     const cars = await carActions.getCarsByPeriod(newDate, lastDayMonth);
     setCars(cars);
+    setRevenue(getRevenue(cars));
     setIsLoading(false);
     setFirstDayMonth(newDate);
     hideModal();
@@ -40,12 +42,20 @@ const RevenueScreen = () => {
       const cars = await carActions.getCarsByPeriod(firstDayMonth, lastDayMonth);
       if(mounted) {
         setCars(cars);
+        setRevenue(getRevenue(cars));
         setIsLoading(false);
       }
     }
     getCars();
     return () => mounted = false;
   }, []);
+
+  const getRevenue = (cars) => {
+    if(!cars || cars.length <= 0){
+      return 0;
+    }
+    return cars.reduce((sum, {carRevenue}) => sum + carRevenue, 0);
+  }
 
   const MainBody = () => {
     return(
@@ -55,13 +65,13 @@ const RevenueScreen = () => {
             style={{flex: 1, padding: 15}}>
             <CustomHeader
               header='Ingresos'
-              subHeader={'Utilidad: ' + '$122,000'}
+              subHeader={'Utilidad: ' + currencyFormat(revenue, 'No hay ingresos')}
             />
             <View>
               <CustomText
                 fontType='bold'
                 fontSize='medium'>
-                  Periodo: {`${firstDayMonth.format('DD MMM YY')}/${lastDayMonth.format('DD MMM YY')} `}
+                  Periodo: {`${firstDayMonth.format('DD MMM YY')} / ${lastDayMonth.format('DD MMM YY')} `}
               </CustomText>
             </View>
             <FlatList 

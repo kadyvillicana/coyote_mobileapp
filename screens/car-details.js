@@ -186,7 +186,7 @@ const CarDetailsScreen = ({route, navigation}) => {
             <View style={{flexDirection:'row'}}>
               <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Utilidad</CustomText>
-                <CustomText>{currencyFormat(car.soldPrice - car.purchasePricePlusOutgoings)}</CustomText>
+                <CustomText>{currencyFormat(car.carRevenue)}</CustomText>
               </View>
               <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Vendida en</CustomText>
