@@ -22,7 +22,7 @@ const EditCarScreen = ({navigation, route}) => {
 
   const deleteCar = () => {
     async function deleteCar() {
-      await carActions.deleteCarById(carId);
+      await carActions.deleteCarById(car.id);
     }
     deleteCar();
     navigation.popToTop();
@@ -208,11 +208,12 @@ const EditCarScreen = ({navigation, route}) => {
                     style={{padding: 15, marginTop: 15, marginBottom: 15}}>
                     Guardar
                   </CustomButton>
-                  {/* <CustomButton 
-                    style={{padding: 15, marginTop: 15}}
+                  <CustomButton 
+                    warningColor
+                    style={{padding: 15}}
                     onPress={() => showModal()}>
                     Eliminar
-                  </CustomButton> */}
+                  </CustomButton>
                 </View>
               </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
