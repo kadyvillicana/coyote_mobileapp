@@ -65,4 +65,9 @@ export default class CarModel {
     get carRevenue(){
         return this.soldPrice - this.purchasePricePlusOutgoings;
     }
+
+    get carCreditDebt(){
+        const payments = this.paymentsSum && this.paymentsSum > 0 ? this.paymentsSum : 0;
+        return this.soldPrice - payments;
+    }
 };

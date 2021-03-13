@@ -131,7 +131,6 @@ const CarDetailsScreen = ({route, navigation}) => {
     }
   }
 
-  const debt = car.soldPrice - car.paymentsSum;
   const lastPaymentDate = car.status === 'soldCredit' ? Moment(car.lastPaymentDate) : Moment().startOf('day');
   const today =  Moment().startOf('day');
   const daysDiff = lastPaymentDate.diff(today, 'days', false) * -1;
@@ -182,7 +181,32 @@ const CarDetailsScreen = ({route, navigation}) => {
           <CustomText fontSize='medium' fontType='bold' style={{paddingLeft: 15}}>
             {'Vehículo vendido '+ parseStatus(car.status)}
           </CustomText>
+          {/* <View style={{backgroundColor: colors.backgroundVariant}}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('EditClient', {car:car})}
+            style={[styles.detailContainer, {
+              borderLeftWidth:1,
+              borderTopWidth: 0,
+              borderRightWidth:0, borderColor: colors.border} ]}>
+              <CustomText fontSize='small' secondaryColor>Cliente</CustomText>
+              <CustomText>{car.clientName ? car.clientName : ''}</CustomText>
+          </TouchableOpacity>
+          </View> */}
           <View style={{backgroundColor: colors.backgroundVariant, marginTop: 15}}>
+            <View style={{flexDirection:'row'}}>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('EditClient', {car:car})}
+            style={[styles.detailContainer, {
+              borderLeftWidth:0,
+              borderTopWidth: 1,
+              borderBottomWidth: 0,
+              borderRightWidth:0, borderColor: colors.border} ]}>
+              <CustomText fontSize='small' secondaryColor>Cliente</CustomText>
+              <CustomText>{car.clientName ? car.clientName : ''}</CustomText>
+          </TouchableOpacity>
+            </View>
+          </View> 
+          <View style={{backgroundColor: colors.backgroundVariant}}>
             <View style={{flexDirection:'row'}}>
               <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Utilidad</CustomText>
@@ -242,8 +266,8 @@ const CarDetailsScreen = ({route, navigation}) => {
                   <CustomText fontSize='small' secondaryColor>Deuda</CustomText>
                   <CustomText fontType='bold' 
                     style={[,
-                      debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}>{
-                      currencyFormat(debt)}
+                      car.carCreditDebt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}>{
+                      currencyFormat(car.carCreditDebt)}
                   </CustomText>
                 </TouchableOpacity>
                 <View
@@ -251,20 +275,10 @@ const CarDetailsScreen = ({route, navigation}) => {
                     borderLeftWidth:0,
                     borderTopWidth: 0,
                     borderRightWidth:0, borderColor: colors.border} ]}>
-                  <CustomText fontSize='small' secondaryColor>Días desde último pago</CustomText>
-                  <CustomText>{daysDiff}</CustomText>
+                  <CustomText fontSize='small' secondaryColor>Último pago</CustomText>
+                  <CustomText>{daysDiff} días</CustomText>
                 </View>
               </View>
-              {/* <CustomText 
-                fontSize='medium'
-                fontType='light'>
-                  Han pasado {daysDiff} días desde el ultimo pago y aun se deben 
-                  <CustomText fontType='bold' 
-                  style={[
-                      {color: colors.text},
-                      debt <= car.soldPrice ? {color: colors.error} : {color: colors.green}]}> {currencyFormat(debt)} </CustomText>
-                  del vehículo
-              </CustomText> */}
             </View>
           }
         </View>

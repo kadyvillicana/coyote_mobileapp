@@ -22,31 +22,7 @@ export default (realmInstance) => {
             } catch(e){
                 reject(e);
             }
-        })
-        // const { 
-        //     make, model, version, miles, purchasePrice
-        // } = carResponse;
-        // return new Promise((resolve, reject) => {
-        //     try {
-        //         const id = Math.round(Math.random() * 1000000) + '';
-        //         const purchaseDate = new Date();
-        //         const car = {
-        //             id,
-        //             make,
-        //             model, 
-        //             version,
-        //             miles,
-        //             purchaseDate,
-        //             purchasePrice
-        //         };
-        //         realmInstance.write(() => {
-        //             const createdCar = realmInstance.create(CarModel.getCarModelName(), car, true);
-        //             resolve(createdCar);
-        //         });
-        //     } catch(e) {
-        //         reject(e);
-        //     }
-        // });
+        });
     },
 
     updateCarById: (car) => {
@@ -73,7 +49,7 @@ export default (realmInstance) => {
             }catch(e) {
                 reject(e);
             }
-        })
+        });
     },
 
     getCarById: id => {
@@ -104,7 +80,7 @@ export default (realmInstance) => {
             } catch(e) {
                 reject(e)
             }
-        })
+        });
     },
 
     getCarsByPeriod: (startDate, endDate) => {
@@ -119,7 +95,24 @@ export default (realmInstance) => {
             }catch(e) {
                 reject(e)
             }
-        })
-    }
+        });
+    },
+
+    getSoldCreditClients: () => {
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = realmInstance.objects(CarModel.getCarModelName())
+                    .filtered('status = $0 AND clientName != "" SORT(soldDate DESC)', 'soldCredit');
+
+                if(!cars){
+                    resolve([]);
+                }
+                const clients = _.groupBy(cars, 'clientName');
+                resolve(clients);
+            } catch(e) {
+                reject(e)
+            }
+        });
+    },
   }
 }

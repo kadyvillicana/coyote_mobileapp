@@ -16,6 +16,8 @@ import SellCarScreen from '../screens/sell-car';
 import SoldHistoryScreen from '../screens/sold-history';
 import OutGoingScreen from '../screens/outgoings';
 import PaymentScreen from '../screens/payments';
+import ClientScreen from '../screens/clients';
+import EditClientNameScreen from '../screens/edit-client-name';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -59,6 +61,7 @@ function HomeStackScreen(){
             <HomeStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
             <HomeStack.Screen name='AddCar' component={AddCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
+            <HomeStack.Screen name='EditClient' component={EditClientNameScreen} options={customHeaderBar} />
             <HomeStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
             <HomeStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='SellCar' component={SellCarScreen} options={customHeaderBar} />
@@ -66,12 +69,22 @@ function HomeStackScreen(){
         </HomeStack.Navigator>
     )
 }
+
 const RevenueStack = createStackNavigator();
 function RevenueStackScreen(){
     return (
         <RevenueStack.Navigator>
             <RevenueStack.Screen name='Home' component={RevenueScreen} options={{headerShown: false}} />
         </RevenueStack.Navigator>
+    )
+}
+
+const ClientStack = createStackNavigator();
+function ClientStackScreen(){
+    return(
+        <ClientStack.Navigator>
+            <ClientStack.Screen name='Clientes' component={ClientScreen} options={{headerShown: false}} />
+        </ClientStack.Navigator>
     )
 }
 
@@ -85,6 +98,7 @@ function SoldHistoryStackScreen(){
             <SoldHistoryStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
             <SoldHistoryStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <SoldHistoryStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <SoldHistoryStack.Screen name='EditClient' component={EditClientNameScreen} options={customHeaderBar} />
         </SoldHistoryStack.Navigator>
     )
 }
@@ -109,6 +123,9 @@ export default () => {
                         if (route.name === 'Historial') {
                             iconName = 'hourglass-outline';
                         }
+                        if (route.name === 'Clientes') {
+                            iconName = 'person-outline';
+                        }
                         return <Icon name={iconName} size={size} color={color} />;
                     },
                 })}
@@ -118,6 +135,7 @@ export default () => {
                 }}>
                 <Tab.Screen name='Inicio' component={HomeStackScreen} />
                 <Tab.Screen name='Ingresos' component={RevenueStackScreen} />
+                <Tab.Screen name='Clientes' component={ClientStackScreen} />
                 <Tab.Screen name='Historial' component={SoldHistoryStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
