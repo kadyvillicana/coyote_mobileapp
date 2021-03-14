@@ -1,17 +1,18 @@
 import React from 'react';
 import { View } from 'react-native';
+import { CustomText } from '.';
 import { useTheme } from '@react-navigation/native';
-import CustomText from './custom-text';
 
-const CarCardVertical = ({
-  title,
-  subTitleLeft,
-  subTitleTextLeft,
-  subTitleTextRight,
-  subTitleRight,
-}) => {
-  const { colors } = useTheme();
-  return (
+const ClientCard = (props) => {
+  const {colors} = useTheme();
+  const {
+    clientName,
+    subTitleLeft,
+    subTitleTextLeft,
+    subTitleRight,
+    subTitleTextRight
+  } = props;
+  return(
     <View style={
       {
         backgroundColor: colors.backgroundVariant, 
@@ -24,7 +25,7 @@ const CarCardVertical = ({
           <View>
               <CustomText
                   fontType='bold'>
-                      {title ? title : ''}
+                      {clientName ? clientName : ''}
               </CustomText>
           </View>
       </View>
@@ -45,7 +46,7 @@ const CarCardVertical = ({
           </View>
       </View>
     </View>
-  );
+  )
 }
 
-export default CarCardVertical;
+export default ClientCard;
