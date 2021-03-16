@@ -92,12 +92,12 @@ function ClientStackScreen(){
         <ClientStack.Navigator>
             <ClientStack.Screen name='Clientes' component={ClientScreen} options={{headerShown: false}} />
             <ClientStack.Screen name='CarClients' component={CarsByClientScreen} options={customHeaderBar} />
-            <RevenueStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
-            <RevenueStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
-            <RevenueStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
-            <RevenueStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
-            <RevenueStack.Screen name='EditClient' component={EditClientNameScreen} options={customHeaderBar} />
-            <RevenueStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
+            <ClientStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
+            <ClientStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
+            <ClientStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <ClientStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
+            <ClientStack.Screen name='EditClient' component={EditClientNameScreen} options={customHeaderBar} />
+            <ClientStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
         </ClientStack.Navigator>
     )
 }
