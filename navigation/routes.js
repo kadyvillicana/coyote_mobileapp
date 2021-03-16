@@ -18,6 +18,7 @@ import OutGoingScreen from '../screens/outgoings';
 import PaymentScreen from '../screens/payments';
 import ClientScreen from '../screens/clients';
 import EditClientNameScreen from '../screens/edit-client-name';
+import CarsByClientScreen from '../screens/cars-by-client';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -74,7 +75,13 @@ const RevenueStack = createStackNavigator();
 function RevenueStackScreen(){
     return (
         <RevenueStack.Navigator>
-            <RevenueStack.Screen name='Home' component={RevenueScreen} options={{headerShown: false}} />
+            <RevenueStack.Screen name='Revenue' component={RevenueScreen} options={{headerShown: false}} />
+            <RevenueStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='EditClient' component={EditClientNameScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
         </RevenueStack.Navigator>
     )
 }
@@ -84,6 +91,13 @@ function ClientStackScreen(){
     return(
         <ClientStack.Navigator>
             <ClientStack.Screen name='Clientes' component={ClientScreen} options={{headerShown: false}} />
+            <ClientStack.Screen name='CarClients' component={CarsByClientScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='CarDetails' component={CarDetailsScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='Outgoings' component={OutGoingScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='EditClient' component={EditClientNameScreen} options={customHeaderBar} />
+            <RevenueStack.Screen name='ChangeDate' component={ChangeDateScreen} options={customHeaderBar} />
         </ClientStack.Navigator>
     )
 }

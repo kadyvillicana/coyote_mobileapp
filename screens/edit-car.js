@@ -8,9 +8,6 @@ import { useForm, Controller } from 'react-hook-form';
 const EditCarScreen = ({navigation, route}) => {
 
   const car = route.params.carId;
-
-  // const [car, setCar] = useState({});
-  // const [defaultItem, setDefaultItem] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const { handleSubmit, errors, control } = useForm({});
@@ -41,8 +38,7 @@ const EditCarScreen = ({navigation, route}) => {
     if(data.salePrice){
       data.salePrice = parseInt(data.salePrice);
     }
-    console.log({id: car.id, ...data});
-    // await carActions.updateCarById({id: carId, ...data});
+    await carActions.updateCarById({id: car.id, ...data});
     navigation.goBack();
   }
 

@@ -114,5 +114,20 @@ export default (realmInstance) => {
             }
         });
     },
+
+    getCarsByClientName: (clientName) => {
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = realmInstance.objects(CarModel.getCarModelName())
+                    .filtered('status = $0 AND clientName = $1 SORT(soldDate DESC)', 'soldCredit', clientName);
+                if(!cars){
+                    resolve([]);
+                }
+                resolve(cars);
+            } catch(e) {
+                reject(e)
+            }
+        });
+    },
   }
 }

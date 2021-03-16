@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import currencyFormat from '../utils';
 import {Portal, Provider, Modal} from 'react-native-paper';
 
-const RevenueScreen = () => {
+const RevenueScreen = ({navigation}) => {
 
   const today = new Date();
   const [cars, setCars] = useState([]);
@@ -79,11 +79,14 @@ const RevenueScreen = () => {
               data={cars}
               renderItem={
                 ({item}) => 
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
                   <CarCardVertical
                     title={`${item.make} ${item.version} ${item.model}`}
                     subTitleLeft='Utilidad'
-                    subTitleTextLeft={currencyFormat(item.soldPrice - item.purchasePricePlusOutgoings)}
+                    subTitleTextLeft={<CustomText 
+                      style={[item.carRevenue <= 0 ? {color: '#cf6679'}: {color: '#03dac6'}]}>
+                       {currencyFormat(item.carRevenue, 'Sin valor')}</CustomText>}
                     subTitleRight='Fecha de venta'
                     subTitleTextRight={Moment(item.soldDate).format('DD MMM YY')}
                   />

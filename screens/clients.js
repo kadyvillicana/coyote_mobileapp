@@ -7,7 +7,7 @@ import { carActions } from '../data';
 import currencyFormat from '../utils';
 import { useFocusEffect } from '@react-navigation/native';
 
-const ClientScreen = () => {
+const ClientScreen = ({navigation}) => {
 
   const [clients, setClients] = useState({});
   const [totalDebt, setTotalDebt] = useState(0);
@@ -95,7 +95,8 @@ const ClientScreen = () => {
           data={Object.keys(clients)}
           keyExtractor={item => item}
           renderItem={
-            ({item}) => <TouchableOpacity>
+            ({item}) => <TouchableOpacity
+              onPress={() => navigation.navigate('CarClients', {clientName: item})}>
               <ClientItem
                 name={item}
                 item={clients[item]}

@@ -180,33 +180,8 @@ const CarDetailsScreen = ({route, navigation}) => {
         <View style={{marginTop: 15}}>
           <CustomText fontSize='medium' fontType='bold' style={{paddingLeft: 15}}>
             {'Vehículo vendido '+ parseStatus(car.status)}
-          </CustomText>
-          {/* <View style={{backgroundColor: colors.backgroundVariant}}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('EditClient', {car:car})}
-            style={[styles.detailContainer, {
-              borderLeftWidth:1,
-              borderTopWidth: 0,
-              borderRightWidth:0, borderColor: colors.border} ]}>
-              <CustomText fontSize='small' secondaryColor>Cliente</CustomText>
-              <CustomText>{car.clientName ? car.clientName : ''}</CustomText>
-          </TouchableOpacity>
-          </View> */}
+          </CustomText> 
           <View style={{backgroundColor: colors.backgroundVariant, marginTop: 15}}>
-            <View style={{flexDirection:'row'}}>
-            <TouchableOpacity
-            onPress={() => navigation.navigate('EditClient', {car:car})}
-            style={[styles.detailContainer, {
-              borderLeftWidth:0,
-              borderTopWidth: 1,
-              borderBottomWidth: 0,
-              borderRightWidth:0, borderColor: colors.border} ]}>
-              <CustomText fontSize='small' secondaryColor>Cliente</CustomText>
-              <CustomText>{car.clientName ? car.clientName : ''}</CustomText>
-          </TouchableOpacity>
-            </View>
-          </View> 
-          <View style={{backgroundColor: colors.backgroundVariant}}>
             <View style={{flexDirection:'row'}}>
               <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Utilidad</CustomText>
@@ -231,6 +206,20 @@ const CarDetailsScreen = ({route, navigation}) => {
       {
         car.status === 'soldCredit' ?
         <View>
+          <View style={{backgroundColor: colors.backgroundVariant}}>
+            <View style={{flexDirection:'row'}}>
+              <TouchableOpacity
+              onPress={() => navigation.navigate('EditClient', {car:car})}
+              style={[styles.detailContainer, {
+                borderLeftWidth:0,
+                borderTopWidth: 0,
+                borderBottomWidth: 1,
+                borderRightWidth:0, borderColor: colors.border} ]}>
+                <CustomText fontSize='small' secondaryColor>Cliente</CustomText>
+                <CustomText>{car.clientName ? car.clientName : ''}</CustomText>
+              </TouchableOpacity>
+            </View>
+          </View>
           {
             car.paymentsSum === 0 ?
             <View style={{backgroundColor: colors.backgroundVariant}}>
