@@ -52,6 +52,24 @@ const SoldHistoryScreen = ({navigation}) => {
     }
   }
 
+  const NoBody = () => {
+    return(
+    <View style={{flex: 1, padding:  15}}>
+      <CustomHeader
+        header='Historial'
+      />
+      <View
+          style={{alignItems: 'center', justifyContent: 'center', marginTop: 180}}>
+          <CustomText
+            style={{marginBottom: 25}}
+            fontType='bold'
+            fontSize='medium'
+          >Aún no has tenido ventas</CustomText>
+        </View>
+    </View>
+    )
+  }
+
   const MainBody = () => {
     return(
       <View
@@ -92,7 +110,9 @@ const SoldHistoryScreen = ({navigation}) => {
   }
 
   return(
-    <MainScreenContainer isLoading={isLoading} bodyView={<MainBody/>} />
+    <MainScreenContainer isLoading={isLoading} 
+      bodyView={list && list.length > 0 ? <MainBody/> : <NoBody/>} 
+    />
   )
 }
 

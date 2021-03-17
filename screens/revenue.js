@@ -57,6 +57,25 @@ const RevenueScreen = ({navigation}) => {
     return cars.reduce((sum, {carRevenue}) => sum + carRevenue, 0);
   }
 
+  const NoBody = () => {
+    return(
+    <View style={{flex: 1, padding:  15}}>
+      <CustomHeader
+        header='Ingresos'
+        subHeader={'Utilidad: ' + currencyFormat(revenue, 'Aun no hay ingresos')}
+      />
+      <View
+          style={{alignItems: 'center', justifyContent: 'center', marginTop: 180}}>
+          <CustomText
+            style={{marginBottom: 25}}
+            fontType='bold'
+            fontSize='medium'
+          >Aún no has tenido ventas</CustomText>
+        </View>
+    </View>
+    )
+  }
+
   const MainBody = () => {
     return(
       <Provider>
@@ -155,7 +174,7 @@ const RevenueScreen = ({navigation}) => {
   return (
     <MainScreenContainer
       isLoading={isLoading}
-      bodyView={ cars && cars.length > 0 ? <MainBody/> : <View></View>}
+      bodyView={ cars && cars.length > 0 ? <MainBody/> : <NoBody/>}
     />
   );
 };
