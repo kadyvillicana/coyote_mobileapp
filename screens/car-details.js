@@ -164,10 +164,12 @@ const CarDetailsScreen = ({route, navigation}) => {
           </View>
         </View>
         <View style={{flexDirection:'row'}}>
-          <View style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderColor: colors.border} ]}>
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('ChangeDate', {car: car, dateToChange: 'purchaseDate'})}
+            style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Fecha de Compra</CustomText>
             <CustomText>{Moment(car.purchaseDate).format('DD MMM')}</CustomText>
-          </View>
+          </TouchableOpacity>
           <View style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderRightWidth:0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Kilometraje</CustomText>
             <CustomText>{car.miles}</CustomText>
@@ -192,7 +194,7 @@ const CarDetailsScreen = ({route, navigation}) => {
                 <CustomText>{currencyFormat(car.soldPrice)}</CustomText>
               </View>
               <TouchableOpacity 
-                onPress={() => navigation.navigate('ChangeDate', {car: car})}
+                onPress={() => navigation.navigate('ChangeDate', {car: car, dateToChange: 'soldDate'})}
                 style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Fecha de venta</CustomText>
                 <CustomText>{Moment(car.soldDate).format('DD MMM')}</CustomText>

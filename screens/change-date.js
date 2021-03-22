@@ -7,7 +7,8 @@ import { carActions } from '../data';
 
 const ChangeDateScreen = ({route, navigation}) => {
   const car = route.params.car;
-  const [date, setDate] = useState(new Date(car.soldDate));
+  const dateToChange = route.params.dateToChange;
+  const [date, setDate] = useState(new Date(car[dateToChange]));
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -17,7 +18,7 @@ const ChangeDateScreen = ({route, navigation}) => {
   const onSubmit = async i => {
     await carActions.updateCarById({
       id: car.id,
-      soldDate: date,
+      [dateToChange]: date,
     });
     navigation.goBack();
   }
