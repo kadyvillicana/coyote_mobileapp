@@ -76,7 +76,7 @@ const SoldHistoryScreen = ({navigation}) => {
         style={{padding: 15}}>
         <CustomHeader 
           header='Historial'
-          subHeader={`Fecha de última venta: ${Moment(list[0].soldDate).format('DD MMM YYYY')}`}
+          subHeader={`Última venta: ${Moment(list[0].soldDate).format('DD MMM YYYY')}`}
         />
         <View style={{marginBottom: 15}}>
           <CustomText

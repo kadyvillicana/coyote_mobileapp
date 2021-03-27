@@ -68,7 +68,7 @@ const HomeScreen = ({navigation}) => {
         style={{flex:1, padding: 15}}>
         <CustomHeader 
           header='Inicio'
-          subHeader={'Inversión Actual: ' + currencyFormat(list.reduce((sum, {purchasePricePlusOutgoings}) => sum + purchasePricePlusOutgoings, 0)) }
+          subHeader={'Inversión: ' + currencyFormat(list.reduce((sum, {purchasePricePlusOutgoings}) => sum + purchasePricePlusOutgoings, 0)) }
         />
         <View style={{marginBottom:15}}>
           <CustomText

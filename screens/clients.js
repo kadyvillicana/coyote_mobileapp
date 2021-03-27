@@ -37,8 +37,8 @@ const ClientScreen = ({navigation}) => {
       async function getClients(){
         const _clients = await carActions.getSoldCreditClients();
         let _totalDebt = 0;
-        for (const client in clients) {
-          _totalDebt += clients[client].reduce((sum, {carCreditDebt}) => sum + carCreditDebt, 0);
+        for (const client in _clients) {
+          _totalDebt += _clients[client].reduce((sum, {carCreditDebt}) => sum + carCreditDebt, 0);
         }
         if(mounted){
           setClients(_clients);
@@ -89,7 +89,7 @@ const ClientScreen = ({navigation}) => {
       <View style={{padding: 15}}>
         <CustomHeader 
           header='Clientes'
-          subHeader={`Adeudo Actual: ${currencyFormat(totalDebt, 'Sin Adeudo')}` }
+          subHeader={`Adeudo: ${currencyFormat(totalDebt, 'Sin Adeudo')}` }
         />
         <FlatList
           data={Object.keys(clients)}

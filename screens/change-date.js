@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import { View, Platform, Button } from 'react-native';
+import { View } from 'react-native';
 import { CustomButton, CustomHeaderChild, CustomText } from '../components';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import Moment from 'moment';
 import { carActions } from '../data';
 
 const ChangeDateScreen = ({route, navigation}) => {

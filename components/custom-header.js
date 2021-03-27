@@ -10,7 +10,7 @@ const CustomHeader = ({header, subHeader}) => {
       <View style={{marginTop: 15}}>
         <CustomText
           secondaryColor 
-          fontSize='medium'>{subHeader}</CustomText>
+          fontSize='regular'>{subHeader}</CustomText>
       </View>
     </View>
   </View>
