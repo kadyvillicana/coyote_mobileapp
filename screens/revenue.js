@@ -59,67 +59,36 @@ const RevenueScreen = ({navigation}) => {
 
   const NoBody = () => {
     return(
-    <View style={{flex: 1, padding:  15}}>
-      <CustomHeader
-        header='Ingresos'
-        subHeader={'Utilidad: ' + currencyFormat(revenue, 'Aun no hay ingresos')}
-      />
-      <View
-          style={{alignItems: 'center', justifyContent: 'center', marginTop: 180}}>
-          <CustomText
-            style={{marginBottom: 25}}
-            fontType='bold'
-            fontSize='medium'
-          >Aún no has tenido ventas</CustomText>
-        </View>
-    </View>
+      <Provider>
+        <Portal>
+          <View style={{flex: 1, padding:  15}}>
+            <CustomHeader
+              header='Ingresos'
+              subHeader={'Utilidad: ' + currencyFormat(revenue, 'Aun no hay ingresos')}
+            />
+            <View
+                style={{alignItems: 'center', justifyContent: 'center', marginTop: 180}}>
+                <CustomText
+                  style={{marginBottom: 25}}
+                  fontType='bold'
+                  fontSize='medium'
+                >No has tenido ventas en este periodo</CustomText>
+              </View>
+              <CustomFab
+                    style={{position: 'absolute', bottom: 0, right:0, margin: 30}}
+                    icon='calendar'
+                    onPress={showModal}
+                  />
+          </View>
+          <SelectPeriodModal />
+        </Portal>
+      </Provider>
     )
   }
 
-  const MainBody = () => {
+  const SelectPeriodModal = () => {
     return(
-      <Provider>
-        <Portal>
-          <View
-            style={{flex: 1, padding: 15}}>
-            <CustomHeader
-              header='Ingresos'
-              subHeader={'Utilidad: ' + currencyFormat(revenue, 'No hay ingresos')}
-            />
-            <View>
-              <CustomText
-                fontType='bold'
-                fontSize='medium'>
-                  Periodo: {`${firstDayMonth.format('DD MMM YY')} / ${lastDayMonth.format('DD MMM YY')} `}
-              </CustomText>
-            </View>
-            <FlatList 
-              style={{marginTop: 15}}
-              data={cars}
-              renderItem={
-                ({item}) => 
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
-                  <CarCardVertical
-                    title={`${item.make} ${item.version} ${item.model}`}
-                    subTitleLeft='Utilidad'
-                    subTitleTextLeft={<CustomText 
-                      style={[item.carRevenue <= 0 ? {color: '#cf6679'}: {color: '#03dac6'}]}>
-                       {currencyFormat(item.carRevenue, 'Sin valor')}</CustomText>}
-                    subTitleRight='Fecha de venta'
-                    subTitleTextRight={Moment(item.soldDate).format('DD MMM YY')}
-                  />
-                </TouchableOpacity>
-              }
-            />
-            <CustomFab
-              style={{position: 'absolute', bottom: 0, right:0, margin: 30}}
-              icon='calendar'
-              onPress={showModal}
-            />
-          </View>
-          {/* Add Outgoing Modal  */}
-        <Modal 
+      <Modal 
           visible={visible} 
           onDismiss={hideModal} 
           contentContainerStyle={containerStyle}
@@ -165,6 +134,53 @@ const RevenueScreen = ({navigation}) => {
             </View>
           </View>
         </Modal>
+    );
+  }
+
+  const MainBody = () => {
+    return(
+      <Provider>
+        <Portal>
+          <View
+            style={{flex: 1, padding: 15}}>
+            <CustomHeader
+              header='Ingresos'
+              subHeader={'Utilidad: ' + currencyFormat(revenue, 'No hay ingresos')}
+            />
+            <View>
+              <CustomText
+                fontType='bold'
+                fontSize='medium'>
+                  Periodo: {`${firstDayMonth.format('DD MMM YY')} / ${lastDayMonth.format('DD MMM YY')} `}
+              </CustomText>
+            </View>
+            <FlatList 
+              style={{marginTop: 15}}
+              data={cars}
+              renderItem={
+                ({item}) => 
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
+                  <CarCardVertical
+                    title={`${item.make} ${item.version} ${item.model}`}
+                    subTitleLeft='Utilidad'
+                    subTitleTextLeft={<CustomText 
+                      style={[item.carRevenue <= 0 ? {color: '#cf6679'}: {color: '#03dac6'}]}>
+                       {currencyFormat(item.carRevenue, 'Sin valor')}</CustomText>}
+                    subTitleRight='Fecha de venta'
+                    subTitleTextRight={Moment(item.soldDate).format('DD MMM YY')}
+                  />
+                </TouchableOpacity>
+              }
+            />
+            <CustomFab
+              style={{position: 'absolute', bottom: 0, right:0, margin: 30}}
+              icon='calendar'
+              onPress={showModal}
+            />
+          </View>
+          {/* Add Outgoing Modal  */}
+          <SelectPeriodModal />
         </Portal>
       </Provider>
     )
