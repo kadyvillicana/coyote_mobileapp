@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CarCardVertical, CustomFab, CustomHeader, CustomText, MainScreenContainer } from '../components';
 import Moment from 'moment';
 import { carActions } from '../data';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import currencyFormat from '../utils';
 import {Portal, Provider, Modal} from 'react-native-paper';
 

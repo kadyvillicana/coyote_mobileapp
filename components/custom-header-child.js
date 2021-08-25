@@ -1,14 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { CustomText } from '../components';
 import { IconButton } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
 const CustomHeaderChild = ({title, onPressRightButton}) => {
   const {colors} = useTheme();
+  const paddingTopByPlatform = Platform.OS === 'ios' ? 75 : 35;
+
   return(
     <View>
-      <View style={{backgroundColor: colors.primary, paddingTop: 75, flexDirection:'row'}}>
+      <View style={{backgroundColor: colors.primary, paddingTop: paddingTopByPlatform, flexDirection:'row'}}>
         <View style={{flex: 6}}>
           <CustomText
             numberOfLines={1}

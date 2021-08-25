@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import CustomText from './custom-text';
 
 const CustomHeader = ({header, subHeader}) => {
+  const paddingTopByPlatform = Platform.OS === 'ios' ? 30 : 10
+  const paddingBottomByPlatform = Platform.OS === 'ios' ? 30 : 20
   return (
-  <View style={[styles.headerContainer]}>
+  <View style={[styles.headerContainer],{paddingTop: paddingTopByPlatform, paddingBottom: paddingBottomByPlatform}}>
     <View>
       <CustomText fontSize='big' fontType='bold'>{header}</CustomText>
       <View style={{marginTop: 15}}>
@@ -19,12 +21,10 @@ const CustomHeader = ({header, subHeader}) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    paddingTop: 30,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
-    paddingBottom: 30,
     flexDirection: 'row',
-},
+  },
 })
 
 

@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { FlatList, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import { CustomHeader, MainScreenContainer, CustomText, CarCardVertical } from '../components';
-import ClientCard from '../components/client-card';
 import { carActions } from '../data';
 import currencyFormat from '../utils';
 import { useFocusEffect } from '@react-navigation/native';
