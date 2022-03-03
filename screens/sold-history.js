@@ -85,7 +85,7 @@ const SoldHistoryScreen = ({navigation}) => {
             {list.length} Vehículos vendidos
           </CustomText>
         </View>
-        <View style={{marginBottom: 230}}>
+        <View style={{marginBottom: 300}}>
           <FlatList
             data={list}
             renderItem={

@@ -115,6 +115,26 @@ export default (realmInstance) => {
         });
     },
 
+    getSoldCreditClientsWithDebt: () => {
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = realmInstance.objects(CarModel.getCarModelName())
+                    .filtered('status = $0 AND clientName != "" SORT(soldDate DESC)', 'soldCredit');
+
+                if(!cars){
+                    resolve([]);
+                }
+
+                const result = cars.filter(car => car.carCreditDebt > 0)
+
+                const clients = _.groupBy(result, 'clientName');
+                resolve(clients);
+            } catch(e) {
+                reject(e)
+            }
+        });
+    },
+
     getCarsByClientName: (clientName) => {
         return new Promise((resolve, reject) => {
             try {

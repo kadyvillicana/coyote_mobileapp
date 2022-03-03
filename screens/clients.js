@@ -1,20 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import { FlatList, View, TouchableOpacity } from 'react-native';
-import { CustomHeader, MainScreenContainer, CustomText, CarCardVertical } from '../components';
+import { CustomHeader, MainScreenContainer, CustomText, CarCardVertical, CustomFab } from '../components';
+import { FAB } from 'react-native-paper';
 import { carActions } from '../data';
 import currencyFormat from '../utils';
-import { useFocusEffect } from '@react-navigation/native';
+import { useTheme, useFocusEffect } from '@react-navigation/native';
 
 const ClientScreen = ({navigation}) => {
 
   const [clients, setClients] = useState({});
   const [totalDebt, setTotalDebt] = useState(0);
   const [loading, setLoading] = useState(true);
+  const {colors} = useTheme();
+  const [state, setState] = React.useState({ open: false });
+
+  const onStateChange = ({ open }) => setState({ open });
+
+  const { open } = state;
 
   useEffect(() => {
     let mounted = true;
     async function getClients() {
-      const clients = await carActions.getSoldCreditClients();
+      const clients = await carActions.getSoldCreditClientsWithDebt();
       let _totalDebt = 0;
       for (const client in clients) {
         _totalDebt += clients[client].reduce((sum, {carCreditDebt}) => sum + carCreditDebt, 0);
@@ -28,12 +35,31 @@ const ClientScreen = ({navigation}) => {
     getClients();
     return () => mounted = false;
   }, []);
+
+  const displayAllClients = () => {
+    return false;
+  }
+
+  const FABGroupActions = () => {
+    return [
+      {
+        icon: 'currency-usd',
+        label: 'Vigentes',
+        onPress: () => console.log('Vigentes'),
+      },
+      { 
+        icon: 'account-group',
+        label: 'Todos',
+        onPress: () => console.log('Todos') 
+      },
+    ];
+  }
   
   useFocusEffect(
     React.useCallback(() => {
       let mounted= true;
       async function getClients(){
-        const _clients = await carActions.getSoldCreditClients();
+        const _clients = await carActions.getSoldCreditClientsWithDebt();
         let _totalDebt = 0;
         for (const client in _clients) {
           _totalDebt += _clients[client].reduce((sum, {carCreditDebt}) => sum + carCreditDebt, 0);
@@ -84,7 +110,7 @@ const ClientScreen = ({navigation}) => {
 
   const MainBody = () => {
     return(
-      <View style={{padding: 15}}>
+      <View style={{flex: 1, padding: 15}}>
         <CustomHeader 
           header='Clientes'
           subHeader={`Adeudo: ${currencyFormat(totalDebt, 'Sin Adeudo')}` }
@@ -102,6 +128,20 @@ const ClientScreen = ({navigation}) => {
                
             </TouchableOpacity>
           }
+        />
+        <FAB.Group
+          open={open}
+          icon={open ? 'close' : 'dots-vertical'}
+          fabStyle={{backgroundColor: colors.primary}}
+          theme={{dark: true}}
+          actions={FABGroupActions()}
+          onStateChange={onStateChange}
+          onPress={() => {
+            if (open) {
+              // do something if the speed dial is open
+              //<ion-icon name="ellipsis-vertical-outline"></ion-icon>
+            }
+          }}
         />
       </View>
     );
