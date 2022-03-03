@@ -4,19 +4,13 @@ import { CustomHeader, MainScreenContainer, CustomText, CarCardVertical, CustomF
 import { FAB } from 'react-native-paper';
 import { carActions } from '../data';
 import currencyFormat from '../utils';
-import { useTheme, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ClientScreen = ({navigation}) => {
 
   const [clients, setClients] = useState({});
   const [totalDebt, setTotalDebt] = useState(0);
   const [loading, setLoading] = useState(true);
-  const {colors} = useTheme();
-  const [state, setState] = React.useState({ open: false });
-
-  const onStateChange = ({ open }) => setState({ open });
-
-  const { open } = state;
 
   useEffect(() => {
     let mounted = true;
@@ -38,21 +32,6 @@ const ClientScreen = ({navigation}) => {
 
   const displayAllClients = () => {
     return false;
-  }
-
-  const FABGroupActions = () => {
-    return [
-      {
-        icon: 'currency-usd',
-        label: 'Vigentes',
-        onPress: () => console.log('Vigentes'),
-      },
-      { 
-        icon: 'account-group',
-        label: 'Todos',
-        onPress: () => console.log('Todos') 
-      },
-    ];
   }
   
   useFocusEffect(
@@ -128,20 +107,6 @@ const ClientScreen = ({navigation}) => {
                
             </TouchableOpacity>
           }
-        />
-        <FAB.Group
-          open={open}
-          icon={open ? 'close' : 'dots-vertical'}
-          fabStyle={{backgroundColor: colors.primary}}
-          theme={{dark: true}}
-          actions={FABGroupActions()}
-          onStateChange={onStateChange}
-          onPress={() => {
-            if (open) {
-              // do something if the speed dial is open
-              //<ion-icon name="ellipsis-vertical-outline"></ion-icon>
-            }
-          }}
         />
       </View>
     );
