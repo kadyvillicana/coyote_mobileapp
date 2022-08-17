@@ -264,6 +264,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				F750E18C32B39FFDB0444814 /* [CP] Copy Pods Resources */,
+				86C9F22655D5B9E8C1B4F248 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -286,6 +287,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				A3530B92EEBF04DE22078C9E /* [CP] Copy Pods Resources */,
+				D21F723F2597147B888C8E4E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -496,6 +498,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		86C9F22655D5B9E8C1B4F248 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoyoteApp-CoyoteAppTests/Pods-CoyoteApp-CoyoteAppTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoyoteApp-CoyoteAppTests/Pods-CoyoteApp-CoyoteAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		92EF20D887B35939ADB3D7FF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,6 +586,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoyoteApp/Pods-CoyoteApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D21F723F2597147B888C8E4E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoyoteApp/Pods-CoyoteApp-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoyoteApp/Pods-CoyoteApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F3AFCFDEA228C81C1F323E00 /* [CP] Check Pods Manifest.lock */ = {
