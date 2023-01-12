@@ -10,7 +10,7 @@ const AddCarScreen = ({navigation}) => {
 
   const onSubmit = async data => {
     await carActions.saveCar(data);
-    navigation.goBack();
+    navigation.navigate('SoldBy');
   }
 
   return(

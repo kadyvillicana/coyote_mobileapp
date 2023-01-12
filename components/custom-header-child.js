@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Platform } from 'react-native';
 import { CustomText } from '../components';
-import { IconButton } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
 
-const CustomHeaderChild = ({title, onPressRightButton}) => {
+const CustomHeaderChild = ({title, customPadding}) => {
   const {colors} = useTheme();
-  const paddingTopByPlatform = Platform.OS === 'ios' ? 75 : 35;
+  var paddingTopByPlatform = Platform.OS === 'ios' ? 75 : 35;
+  paddingTopByPlatform = customPadding ? customPadding : paddingTopByPlatform;
 
   return(
     <View>
@@ -19,18 +19,6 @@ const CustomHeaderChild = ({title, onPressRightButton}) => {
             {title}
           </CustomText>
         </View>
-        {
-          onPressRightButton ?  
-            <View style={{alignContent:'center', justifyContent:'center', flex: 1}}>
-              <IconButton
-                icon="pencil"
-                color={colors.backgroundColor}
-                size={20}
-                onPress={onPressRightButton}
-              />
-            </View>
-          : null
-        }
       </View>
     </View>
   )
