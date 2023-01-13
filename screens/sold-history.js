@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, FlatList, View } from 'react-native';
-import { CustomText, MainScreenContainer, CustomHeader, CarCardVertical } from '../components';
+import React, { useEffect, useState, useRef } from 'react';
+import { TouchableOpacity, FlatList, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { CustomText, MainScreenContainer, CustomHeader, CarCardVertical, CustomTextInput } from '../components';
 import { carActions } from '../data';
 import Moment from 'moment';
 import currencyFormat from '../utils';
@@ -10,6 +10,20 @@ const SoldHistoryScreen = ({navigation}) => {
 
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleChange = (text) => {
+    setSearchTerm(text);
+  }
+
+  const contains = ({ make, version, model }, query) => {
+    return make.toLowerCase().includes(query) || version.toLowerCase().includes(query) || model.toLowerCase().includes(query)
+  };
+
+  const filteredData = list.filter(item => {
+    return contains(item, searchTerm.toLowerCase())
+  });
 
   useEffect(() => {
     let mounted = true;
@@ -70,24 +84,32 @@ const SoldHistoryScreen = ({navigation}) => {
     )
   }
 
-  const MainBody = () => {
-    return(
-      <View
-        style={{padding: 15}}>
-        <CustomHeader 
+  return(
+    <MainScreenContainer isLoading={isLoading} 
+      bodyView={list && list.length > 0 ? 
+      <KeyboardAvoidingView
+        style={{padding: 15, flex: 1}}>
+        <CustomHeader
           header='Historial'
           subHeader={`Última venta: ${Moment(list[0].soldDate).format('DD MMM YYYY')}`}
+        />
+        <CustomTextInput
+          style={{marginTop: -15, marginBottom: 15}}
+          mode='outlined'
+          onChangeText={handleChange}
+          value={searchTerm}
+          placeholder="Busca por: Modelo, Año o Versión"
         />
         <View style={{marginBottom: 15}}>
           <CustomText
             fontType='bold'
             fontSize='medium'>
-            {list.length} Vehículos vendidos
+            {filteredData.length} Vehículos vendidos
           </CustomText>
         </View>
-        <View style={{marginBottom: 300}}>
+        <View style={{marginBottom: 200}}>
           <FlatList
-            data={list}
+            data={filteredData}
             renderItem={
                 ({ item }) =>
                 <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
@@ -105,13 +127,10 @@ const SoldHistoryScreen = ({navigation}) => {
             keyExtractor={item => item.id}
           />
         </View>
-      </View>
-    )
-  }
-
-  return(
-    <MainScreenContainer isLoading={isLoading} 
-      bodyView={list && list.length > 0 ? <MainBody/> : <NoBody/>} 
+      </KeyboardAvoidingView> 
+      : 
+      <NoBody/>
+    } 
     />
   )
 }
