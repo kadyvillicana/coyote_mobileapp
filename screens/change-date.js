@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Platform, TouchableOpacity } from 'react-native';
 import { CustomButton, CustomHeaderChild, CustomText } from '../components';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -13,7 +13,10 @@ const ChangeDateScreen = ({route, navigation}) => {
   const dateToChange = route.params.dateToChange;
   const [date, setDate] = useState(new Date(car[dateToChange]));
 
-
+  useEffect(() => {
+    setShow(Platform.OS === 'ios');
+  }, [])
+  
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');

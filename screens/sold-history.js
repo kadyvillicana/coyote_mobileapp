@@ -93,13 +93,13 @@ const SoldHistoryScreen = ({navigation}) => {
           header='Historial'
           subHeader={`Última venta: ${Moment(list[0].soldDate).format('DD MMM YYYY')}`}
         />
-        <CustomTextInput
+        {/* <CustomTextInput
           style={{marginTop: -15, marginBottom: 15}}
           mode='outlined'
           onChangeText={handleChange}
           value={searchTerm}
           placeholder="Busca por: Modelo, Año o Versión"
-        />
+        /> */}
         <View style={{marginBottom: 15}}>
           <CustomText
             fontType='bold'
@@ -120,7 +120,7 @@ const SoldHistoryScreen = ({navigation}) => {
                         style={[item.carRevenue <= 0 ? {color: '#cf6679'}: {color: '#03dac6'}]}>
                          {currencyFormat(item.carRevenue, 'Sin valor')}</CustomText>}
                       subTitleRight='Fecha de Venta'
-                      subTitleTextRight={Moment(item.soldDate).format('DD MMM') + ' (' + parseStatus(item.status) + ')'}
+                      subTitleTextRight={Moment(item.soldDate).format('DD MMM YY')}
                     item={item}/>
                 </TouchableOpacity>
             }

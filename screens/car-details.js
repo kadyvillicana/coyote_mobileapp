@@ -168,7 +168,7 @@ const CarDetailsScreen = ({route, navigation}) => {
             onPress={() => navigation.navigate('ChangeDate', {car: car, dateToChange: 'purchaseDate'})}
             style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Fecha de Compra</CustomText>
-            <CustomText>{Moment(car.purchaseDate).format('DD MMM')}</CustomText>
+            <CustomText>{Moment(car.purchaseDate).format('DD MMM YY')}</CustomText>
           </TouchableOpacity>
           <View style={[styles.detailContainer, {borderLeftWidth:0, borderTopWidth: 0, borderRightWidth:0, borderColor: colors.border} ]}>
             <CustomText fontSize='small' secondaryColor>Kilometraje</CustomText>
@@ -197,7 +197,7 @@ const CarDetailsScreen = ({route, navigation}) => {
                 onPress={() => navigation.navigate('ChangeDate', {car: car, dateToChange: 'soldDate'})}
                 style={[styles.detailContainer, {borderLeftWidth:0, borderRightWidth:0, borderColor: colors.border} ]}>
                 <CustomText fontSize='small' secondaryColor>Fecha de venta</CustomText>
-                <CustomText>{Moment(car.soldDate).format('DD MMM')}</CustomText>
+                <CustomText>{Moment(car.soldDate).format('DD MMM YY')}</CustomText>
               </TouchableOpacity>
             </View>
           </View> 

@@ -86,8 +86,8 @@ const HomeScreen = ({navigation}) => {
                 title={item.make + ' ' + item.version + ' ' + item.model}
                 subTitleLeft='Costo total'
                 subTitleTextLeft={currencyFormat(item.purchasePricePlusOutgoings)}
-                subTitleRight='Precio suguerido'
-                subTitleTextRight={currencyFormat(item.salePrice)}
+                subTitleRight='Gastos'
+                subTitleTextRight={currencyFormat(item.outgoingsSum, 'Aún no hay gastos')}
               />
             </TouchableOpacity>
           }
