@@ -826,7 +826,7 @@
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = CoyoteApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -854,7 +854,7 @@
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = CoyoteApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
