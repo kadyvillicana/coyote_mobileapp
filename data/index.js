@@ -9,7 +9,7 @@ import Realm from 'realm';
 
 const realmInstance = new Realm({
     schema: [OutGoingSchema, CarSchema, PaymentSchema, SellerSchema],
-    schemaVersion: 13,
+    schemaVersion: 15,
     migration: (oldRealm, newRealm) => {
         if(oldRealm.schemaVersion < 1) {
             const oldObjects = oldRealm.objects('Car');
@@ -18,7 +18,7 @@ const realmInstance = new Realm({
             // loop through all objects and set the name property in the new schema
             for (let i = 0; i < oldObjects.length; i++) {
                 newObjects[i].payments = [];
-                newObjects[i].boughtFrom = null;
+                newObjects[i].getFrom = null;
             }
         }
     }

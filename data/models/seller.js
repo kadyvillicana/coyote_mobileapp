@@ -12,6 +12,7 @@ export default class SellerModel {
             name: 'string',
             reference: 'string',
             number: 'string',
+            payments: 'Payment[]',
         },
     };
   }

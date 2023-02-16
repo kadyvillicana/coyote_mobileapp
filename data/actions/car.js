@@ -16,9 +16,10 @@ export default (realmInstance) => {
                 }
                 realmInstance.write(() => {
                     const created = realmInstance.create(CarModel.getCarModelName(), car, true);
-                    resolve(created);
-                })
-                resolve(true);
+                    resolve(
+                        car.id
+                    );
+                });
             } catch(e){
                 reject(e);
             }
