@@ -68,7 +68,7 @@ function HomeStackScreen(){
             <HomeStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='SellCar' component={SellCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
-            <HomeStack.Screen name='GetCarFrom' component={GetCarFrom} options={{headerShown: false}} />
+            <HomeStack.Screen name='GetCarFrom' component={GetCarFrom} options={customHeaderBar} />
         </HomeStack.Navigator>
     )
 }

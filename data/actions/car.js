@@ -15,7 +15,7 @@ export default (realmInstance) => {
                     purchaseDate,
                 }
                 realmInstance.write(() => {
-                    const created = realmInstance.create(CarModel.getCarModelName(), car, true);
+                    realmInstance.create(CarModel.getCarModelName(), car, true);
                     resolve(
                         car.id
                     );
@@ -78,6 +78,20 @@ export default (realmInstance) => {
                 }
                 const clientSuggestions = realmInstance.objects(CarModel.getCarModelName()).filtered(`clientName CONTAINS[c] "${query}"`);
                 resolve(_.groupBy(clientSuggestions, 'clientName'));
+            } catch(e) {
+                reject(e)
+            }
+        });
+    },
+    
+    sellerSuggestions: (query) => {
+        return new Promise((resolve, reject) => {
+            try {
+                if(!query){
+                    resolve([]);
+                }
+                const sellerSuggestions = realmInstance.objects(CarModel.getCarModelName()).filtered(`getFrom.name CONTAINS[c] "${query}"`);
+                resolve(sellerSuggestions);
             } catch(e) {
                 reject(e)
             }

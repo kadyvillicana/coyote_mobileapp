@@ -9,8 +9,9 @@ const AddCarScreen = ({navigation}) => {
   const { handleSubmit, errors, control } = useForm({});
 
   const onSubmit = async data => {
-    const carId = await carActions.saveCar(data);
-    navigation.navigate('GetCarFrom', {carId: carId});
+    navigation.navigate('GetCarFrom', {
+      car: JSON.stringify(data)
+    });
   }
 
   return(
@@ -110,7 +111,7 @@ const AddCarScreen = ({navigation}) => {
               <CustomButton
                 onPress={handleSubmit(onSubmit)}
                 style={{padding: 15, marginTop: 15}}>
-                Guardar
+                continuar
               </CustomButton>
             </View>
 
