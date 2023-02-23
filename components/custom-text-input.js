@@ -13,15 +13,19 @@ const CustomTextInput = (props) =>{
               style,
               {
                   backgroundColor: colors.backgroundVariant,
+                  placeholderColor: 'red'
               }
           ]}
+        textColor={colors.white} 
+        outlineColor={colors.textSecondary} 
         theme=
           {{ 
               colors: { 
                   error: colors.error,
                   text: colors.white, 
                   primary: colors.primary,
-                  placeholder: colors.textSecondary,
+                  placeholder: 'yellow',
+                  onSurface: 'green'
               },
               fonts: {
                       regular: {

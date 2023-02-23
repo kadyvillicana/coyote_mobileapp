@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Platform } from 'react-native';
-import { CustomText } from '../components';
 import { useTheme } from '@react-navigation/native';
+import CustomText from './custom-text';
 
 const CustomHeaderChild = ({title, customPadding}) => {
   const {colors} = useTheme();

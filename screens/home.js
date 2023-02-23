@@ -7,7 +7,7 @@ import currencyFormat from '../utils';
 
 const HomeScreen = ({navigation}) => {
   const [list, setList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -80,7 +80,7 @@ const HomeScreen = ({navigation}) => {
         <FlatList
           data={list}
           renderItem={
-            ({ item }) =>
+            ({ item }) => 
             <TouchableOpacity onPress={() => navigation.navigate('CarDetails', {carId: item.id})}>
               <CarCardVertical
                 title={item.make + ' ' + item.version + ' ' + item.model}
@@ -96,6 +96,7 @@ const HomeScreen = ({navigation}) => {
           <CustomFab
             style={{position: 'absolute', bottom: 0, right:0, margin: 30}}
             icon='plus'
+            mode='flat'
             onPress={() => navigation.navigate('AddCar')}
           />
       </View>

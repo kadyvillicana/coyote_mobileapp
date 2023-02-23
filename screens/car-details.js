@@ -280,8 +280,10 @@ const CarDetailsScreen = ({route, navigation}) => {
           open={open}
           icon={open ? 'close' : 'dots-vertical'}
           fabStyle={{backgroundColor: colors.primary}}
-          theme={{dark: true}}
           actions={FABGroupActions(car.status)}
+          // backdropColor='rgba(46, 50, 54, 0.5)'
+          visible
+          labelTextColor='red'
           onStateChange={onStateChange}
           onPress={() => {
             if (open) {

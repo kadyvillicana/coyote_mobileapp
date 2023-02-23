@@ -9,7 +9,7 @@ import Realm from 'realm';
 
 const realmInstance = new Realm({
     schema: [OutGoingSchema, CarSchema, PaymentSchema, SellerSchema],
-    schemaVersion: 15,
+    schemaVersion: 17,
     migration: (oldRealm, newRealm) => {
         if(oldRealm.schemaVersion < 1) {
             const oldObjects = oldRealm.objects('Car');

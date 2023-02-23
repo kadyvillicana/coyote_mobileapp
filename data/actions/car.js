@@ -58,16 +58,39 @@ export default (realmInstance) => {
     },
 
     getAvailableCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName()).filtered('status = $0 SORT(purchaseDate DESC)', 'available');
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                .filtered('status = $0 SORT(purchaseDate DESC)', 'available'));
+                resolve(cars)
+            } catch (e) {
+                reject(e)
+            }
+        })
     },
 
     getSoldCreditCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName()).filtered('status = $0 SORT(purchaseDate DESC)', 'soldCredit');
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                .filtered('status = $0 SORT(purchaseDate DESC)', 'soldCredit'))
+                resolve(cars)
+            } catch (e) {
+                reject(e)
+            }
+        })
     },
 
     getAllSoldCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName())
-            .filtered('status != $0 SORT(soldDate DESC)', 'available');
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                .filtered('status != $0 SORT(soldDate DESC)', 'available'))
+                resolve(cars)
+            } catch (e) {
+                reject(e)
+            }
+        })  
     },
 
     clientSuggestions: (query) => {
