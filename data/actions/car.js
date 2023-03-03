@@ -57,11 +57,37 @@ export default (realmInstance) => {
     },
 
     getAvailableCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName()).filtered('status = $0 SORT(purchaseDate DESC)', 'available');
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                .filtered('status = $0 SORT(purchaseDate DESC)', 'available'));
+
+                if(!cars){
+                    resolve([]);
+                }
+
+                resolve(cars);
+            } catch(e) {
+                reject(e)
+            }
+        });
     },
 
     getSoldCreditCars: () => {
-        return realmInstance.objects(CarModel.getCarModelName()).filtered('status = $0 SORT(purchaseDate DESC)', 'soldCredit');
+        return new Promise((resolve, reject) => {
+            try {
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                .filtered('status = $0 SORT(purchaseDate DESC)', 'soldCredit'));
+
+                if(!cars){
+                    resolve([]);
+                }
+
+                resolve(cars);
+            } catch(e) {
+                reject(e)
+            }
+        });
     },
 
     getAllSoldCars: () => {
