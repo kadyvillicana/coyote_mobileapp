@@ -29,6 +29,8 @@ export default class CarModel {
             // if status is soldCredit set dueDate for credit
             dueDate: 'date?',
             clientName: 'string?',
+            carProvider: 'CarProvider?',
+            creditPurchasePayments: 'Payment[]',
         },
     }
 

@@ -9,8 +9,10 @@ const AddCarScreen = ({navigation}) => {
   const { handleSubmit, errors, control } = useForm({});
 
   const onSubmit = async data => {
-    await carActions.saveCar(data);
-    navigation.goBack();
+    // await carActions.saveCar(data);
+    navigation.navigate('CarProvider', {
+      car: JSON.stringify(data)
+    });
   }
 
   return(
