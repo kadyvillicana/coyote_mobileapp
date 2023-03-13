@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { CircleButton, CustomButton, CustomHeaderChild, CustomText, CustomTextInput, ErrorTextForm } from '../components'
 import { useForm } from 'react-hook-form';
 import { carActions, carProviderActions } from '../data';
+import { Switch } from 'react-native-paper';
+
 
 const CarProviderScreen = ({ route, navigation }) => {
 
@@ -11,14 +13,7 @@ const CarProviderScreen = ({ route, navigation }) => {
   const [providerSuggestions, setProviderSuggestions] = useState([]);
   const [provider, setProvider] = useState(null);
   const [providerError, setProviderError] = useState(false);
-  const { handleSubmit, errors, control } = useForm({});
-
-  useEffect(() => {
-    async function p() {
-      await carProviderActions.providerCars();
-    }
-    p()
-  }, [])
+  const { handleSubmit } = useForm({});
 
   const handleInput = async data => {
     if (!data) {
@@ -38,7 +33,7 @@ const CarProviderScreen = ({ route, navigation }) => {
   const onSubmit = async () => {
     const newCar = JSON.parse(_car);
     let _provider = null;
-    if (providerSuggestions && !provider) {
+    if (providerSuggestions.length > 0 && !provider) {
       setProviderError(true);
       return
     }
@@ -95,6 +90,9 @@ const CarProviderScreen = ({ route, navigation }) => {
         <CustomText>
           Aqui puedes agregar quien te vendió el auto.
         </CustomText>
+        {/* <View>
+          <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+        </View> */}
       </View>
       <View style={{ justifyContent: 'center', padding: 15, }}>
         <View style={{ marginTop: 15 }}>
@@ -144,7 +142,7 @@ const CarProviderScreen = ({ route, navigation }) => {
         </View>
       </View>
       <View style={{ flex: 1, justifyContent: 'flex-end', padding: 15, }}>
-        <CustomText fontSize={'small'} fontType={'light'}>
+        <CustomText fontSize='small' fontType='light'>
           Sí no lo deseas agregar, presiona CONTINUAR.
         </CustomText>
         <CustomButton

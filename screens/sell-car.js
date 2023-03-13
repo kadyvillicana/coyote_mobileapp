@@ -14,7 +14,7 @@ const SellCarScreen = ({route, navigation}) => {
   const [soldPriceModal, setSoldPriceModal] = useState(null);
   const [clientSuggestions, setClientSuggestions] = useState([]);
   const [client, setClient] = useState('');
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [date, setDate] = useState(new Date(Moment().add(1, 'month')));
   const [clientError, setClientError] = useState(false);
   const onToggleSwitch = () => {setIsSwitchOn(!isSwitchOn); removeClientAndClearSearch();};

@@ -275,28 +275,6 @@ const CarDetailsScreen = ({route, navigation}) => {
         </View>
         : null
       }
-      {
-        car.carProvider ? 
-        <View style={{marginTop: 15}}>
-        <CustomText fontSize='medium' fontType='bold' style={{paddingLeft: 15}}>
-          Le compraste este vehículo a
-        </CustomText> 
-        <View style={{backgroundColor: colors.backgroundVariant, marginTop: 15}}>
-          <View style={{flexDirection:'row'}}>
-            <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
-              <CustomText fontSize='small' secondaryColor>Proveedor</CustomText>
-              <CustomText>{car.carProvider.name}</CustomText>
-            </View>
-            <View style={[styles.detailContainer, {borderLeftWidth:0, borderColor: colors.border} ]}>
-              <CustomText fontSize='small' secondaryColor>Vendida en</CustomText>
-              <CustomText>{currencyFormat(car.soldPrice)}</CustomText>
-            </View>
-          </View>
-        </View> 
-      </View>
-        : null
-      }
-
       <FAB.Group
           open={open}
           icon={open ? 'close' : 'dots-vertical'}

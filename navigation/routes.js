@@ -20,6 +20,7 @@ import ClientScreen from '../screens/clients';
 import EditClientNameScreen from '../screens/edit-client-name';
 import CarsByClientScreen from '../screens/cars-by-client';
 import CarProviderScreen from '../screens/car-provider';
+import ProviderScreen from '../screens/providers';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -119,6 +120,15 @@ function SoldHistoryStackScreen(){
     )
 }
 
+const ProviderStack = createStackNavigator();
+function ProviderStackScreen(){
+    return (
+        <ProviderStack.Navigator>
+            <ProviderStack.Screen name='Providers' component={ProviderScreen} options={{headerShown: false}} />
+        </ProviderStack.Navigator>
+    )
+}
+
 const Tab = createBottomTabNavigator();
 
 
@@ -142,6 +152,9 @@ export default () => {
                         if (route.name === 'Clientes') {
                             iconName = 'person-outline';
                         }
+                        if (route.name === 'Proveedores') {
+                            iconName = 'person-outline';
+                        }
                         return <Icon name={iconName} size={size} color={color} />;
                     },
                 })}
@@ -153,6 +166,7 @@ export default () => {
                 <Tab.Screen name='Ingresos' component={RevenueStackScreen} />
                 <Tab.Screen name='Clientes' component={ClientStackScreen} />
                 <Tab.Screen name='Historial' component={SoldHistoryStackScreen} />
+                <Tab.Screen name='Proveedores' component={ProviderStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )

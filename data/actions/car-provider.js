@@ -30,18 +30,15 @@ export default (realmInstance) => {
             });
         },
 
-        providerCars: (id) => {
+        allProviders: () => {
             return new Promise((resolve, reject) => {
                 try {
-                    // if(!id){
-                    //     resolve(null)
-                    // }
-                    const provider = realmInstance.objects(CarProviderModel.getCarProviderModelName()).filtered('id = "8498"')[0];
-                    console.log(Array.from(provider.cars)); // [Dog { name: 'Fido', breed: 'Labrador', owner: Person { name: 'John', age: 30 } }, Dog { name: 'Spot', breed: 'Dalmatian', owner: Person { name: 'John', age: 30 } }]
-                } catch (e) {
+                    const providers = Array.from(realmInstance.objects(CarProviderModel.getCarProviderModelName()))
+                    resolve(providers)
+                } catch(e) {
                     reject(e)
                 }
             })
-        }
+        },
     }
 }
