@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
 import {Modal} from 'react-native-paper';
-import { CustomText } from '.';
 import CustomButton from './custom-button';
+import CustomText from './custom-text';
 
 const ConfirmationModal = (props) => {
-  const {title, dismissText, successText, onDismiss, onSuccess} = props;
+  const {title, dismissText, successText, onDismiss, onSuccess, childComponent} = props;
   const containerStyle = {
     margin: 15,
     padding: 15, 
@@ -22,6 +22,7 @@ const ConfirmationModal = (props) => {
             fontType='bold'>
             {title}
           </CustomText>
+        {childComponent}
         </View>
         <View style={{flexDirection: 'row', justifyContent:'space-around', marginTop: 15}}>
           <CustomButton

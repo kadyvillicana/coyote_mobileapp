@@ -1,10 +1,10 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { carProviderActions } from '../data';
-import { CustomHeader, CustomText, MainScreenContainer } from '../components';
+import { CarCardVertical, CustomHeader, CustomText, MainScreenContainer } from '../components';
 import { useFocusEffect } from '@react-navigation/native';
 
-const ProviderScreen = () => {
+const ProviderScreen = ({navigation}) => {
 
   const [providers, setProviders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +38,36 @@ const ProviderScreen = () => {
     }, [])
   )
 
+  const ProviderItem = ({ item }) => {
+    const cars = Array.from(item.cars);
+    return (
+      <View style={
+        {
+          backgroundColor: '#2b3137',
+          borderRadius: 10,
+          padding: 15,
+          marginBottom: 15,
+        }
+      }>
+        <View>
+          <View>
+            <CustomText
+              fontType='bold'>
+              {item.name}
+            </CustomText>
+          </View>
+          {/* <FlatList
+            keyExtractor={item => item.id}
+            data={cars}
+            renderItem={
+              ({ item }) => <CustomText>{item.make} {item.version} {item.model}</CustomText>
+            }
+          /> */}
+        </View>
+      </View>
+    )
+  }
+
   const NoData = () => {
     return (
       <View
@@ -46,6 +76,14 @@ const ProviderScreen = () => {
           header='Proveedores'
           subHeader=''
         />
+        <View
+          style={{ alignItems: 'center', justifyContent: 'center', marginTop: 180 }}>
+          <CustomText
+            style={{ marginBottom: 25 }}
+            fontType='bold'
+            fontSize='medium'
+          >Aún no has tenido proveedores</CustomText>
+        </View>
       </View>
     )
   }
@@ -64,14 +102,16 @@ const ProviderScreen = () => {
             data={providers}
             renderItem={
               ({ item }) =>
-                <TouchableOpacity>
-                  <CustomText>
+              <TouchableOpacity
+              onPress={() => navigation.navigate('CarsByProvider', {providerId: item.id})}>
+                  <ProviderItem item={item} />
+                  {/* <CustomText>
                     {item.name}
                   </CustomText>
                   {
                     item.cars && item.cars.length > 0 &&
                     item.cars.map((car) => <CustomText fontSize={'small'}>{car.make}</CustomText>)
-                  }
+                  } */}
                 </TouchableOpacity>
             }
           />
@@ -79,8 +119,6 @@ const ProviderScreen = () => {
       </View>
     )
   }
-
-
 
   return (
     <MainScreenContainer

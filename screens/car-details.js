@@ -75,7 +75,7 @@ const CarDetailsScreen = ({route, navigation}) => {
           {
             icon: 'check',
             label: 'Vender',
-            onPress: () => navigation.navigate('SellCar', {carId: car.id}),
+            onPress: () => navigation.navigate('SellCar', {carId: car.id, purchasePricePlusOutgoings: car.purchasePricePlusOutgoings}),
           },
         ];
       case 'sold':

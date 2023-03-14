@@ -29,10 +29,6 @@ const ClientScreen = ({navigation}) => {
     getClients();
     return () => mounted = false;
   }, []);
-
-  const displayAllClients = () => {
-    return false;
-  }
   
   useFocusEffect(
     React.useCallback(() => {

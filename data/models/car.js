@@ -31,6 +31,7 @@ export default class CarModel {
             clientName: 'string?',
             carProvider: 'CarProvider?',
             creditPurchasePayments: 'Payment[]',
+            isCarFinancedByProvider: {type: 'bool', default: false},
         },
     }
 

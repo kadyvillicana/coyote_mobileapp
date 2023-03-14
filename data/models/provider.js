@@ -1,6 +1,6 @@
 export default class CarProviderModel {
 
-    static getCarProviderModelName() {
+    static getModelName() {
         return CarProviderModel.schema.name;
     }
   

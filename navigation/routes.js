@@ -21,6 +21,7 @@ import EditClientNameScreen from '../screens/edit-client-name';
 import CarsByClientScreen from '../screens/cars-by-client';
 import CarProviderScreen from '../screens/car-provider';
 import ProviderScreen from '../screens/providers';
+import CarsByProviderScreen from '../screens/cars-by-provider';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -125,6 +126,7 @@ function ProviderStackScreen(){
     return (
         <ProviderStack.Navigator>
             <ProviderStack.Screen name='Providers' component={ProviderScreen} options={{headerShown: false}} />
+            <ProviderStack.Screen name='CarsByProvider' component={CarsByProviderScreen} options={customHeaderBar} />
         </ProviderStack.Navigator>
     )
 }

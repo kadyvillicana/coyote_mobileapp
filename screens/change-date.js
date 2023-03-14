@@ -47,7 +47,7 @@ const ChangeDateScreen = ({route, navigation}) => {
                 value={date}
                 mode='date'
                 is24Hour={true}
-                display="default"
+                display="compact"
                 onChange={onChange}
                 maximumDate={new Date()} 
               />
