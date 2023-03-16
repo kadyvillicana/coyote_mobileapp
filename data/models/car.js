@@ -73,4 +73,13 @@ export default class CarModel {
         const payments = this.paymentsSum && this.paymentsSum > 0 ? this.paymentsSum : 0;
         return this.soldPrice - payments;
     }
+
+    get creditPaymentsSum(){
+        return this.creditPurchasePayments.reduce((sum, {value}) => sum + value, 0);
+    }
+
+    get creditPurchaseDebt(){
+        const payments = this.creditPaymentsSum && this.creditPaymentsSum > 0 ? this.creditPaymentsSum : 0;
+        return this.purchasePrice - payments;
+    }
 };

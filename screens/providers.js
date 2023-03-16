@@ -56,13 +56,6 @@ const ProviderScreen = ({navigation}) => {
               {item.name}
             </CustomText>
           </View>
-          {/* <FlatList
-            keyExtractor={item => item.id}
-            data={cars}
-            renderItem={
-              ({ item }) => <CustomText>{item.make} {item.version} {item.model}</CustomText>
-            }
-          /> */}
         </View>
       </View>
     )

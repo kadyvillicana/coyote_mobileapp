@@ -13,7 +13,9 @@ const CarProviderScreen = ({ route, navigation }) => {
   const [providerSuggestions, setProviderSuggestions] = useState([]);
   const [provider, setProvider] = useState(null);
   const [providerError, setProviderError] = useState(false);
-  const { handleSubmit } = useForm({});
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const { handleSubmit, errors, control } = useForm({});
+  const onToggleSwitch = () => { setIsSwitchOn(!isSwitchOn) };
 
   const handleInput = async data => {
     if (!data) {
@@ -37,9 +39,9 @@ const CarProviderScreen = ({ route, navigation }) => {
       setProviderError(true);
       return
     }
-    if (provider && provider.name && provider.name != '' ) {
+    if (provider && provider.name && provider.name != '') {
       _provider = provider;
-      if(provider && provider.id == '-1') {
+      if (provider && provider.id == '-1') {
         const newProvider = {
           id: Math.round(Math.random() * 1000000) + '',
           name: provider.name
@@ -50,6 +52,7 @@ const CarProviderScreen = ({ route, navigation }) => {
     await carActions.saveCar({
       ...newCar,
       carProvider: _provider,
+      isCarFinancedByProvider: isSwitchOn,
     });
 
     navigation.popToTop();
@@ -59,6 +62,7 @@ const CarProviderScreen = ({ route, navigation }) => {
     setProvider(null);
     setProviderError(false);
     setProviderSuggestions([]);
+    setIsSwitchOn(false);
   }
 
   const Item = ({ provider }) => {
@@ -86,13 +90,10 @@ const CarProviderScreen = ({ route, navigation }) => {
       <CustomHeaderChild
         title='¿Quién te lo vendió?'
       />
-      <View style={{padding: 15, }}>
+      <View style={{ padding: 15, }}>
         <CustomText>
           Aqui puedes agregar quien te vendió el auto.
         </CustomText>
-        {/* <View>
-          <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
-        </View> */}
       </View>
       <View style={{ justifyContent: 'center', padding: 15, }}>
         <View style={{ marginTop: 15 }}>
@@ -117,6 +118,12 @@ const CarProviderScreen = ({ route, navigation }) => {
                     </View>
                   </View>
                 </TouchableOpacity>
+                <View style={{ marginTop: 15, flexDirection:'row', justifyContent: 'space-between', alignItems:'center'}}>
+                <CustomText fontType='bold' fontSize='medium'>
+                  ¿La compra es a crédito?
+                </CustomText>
+                  <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+                </View>
               </View>
               :
               <View>

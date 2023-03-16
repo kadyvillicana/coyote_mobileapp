@@ -1,4 +1,5 @@
 import CarProviderModel from "../models/provider";
+import _ from 'lodash';
 
 export default (realmInstance) => {
     return {
@@ -49,7 +50,8 @@ export default (realmInstance) => {
                         return;
                     }
                     const provider = realmInstance.objects(CarProviderModel.getModelName()).filtered('id = $0', id)[0];
-                    resolve(Array.from(provider.cars));
+                    const cars = _.orderBy(Array.from(provider.cars), ['purchaseDate'], ['desc'])
+                    resolve({provider, cars});
                 } catch(e) {
                     reject(e)
                 }

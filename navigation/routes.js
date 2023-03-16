@@ -127,6 +127,7 @@ function ProviderStackScreen(){
         <ProviderStack.Navigator>
             <ProviderStack.Screen name='Providers' component={ProviderScreen} options={{headerShown: false}} />
             <ProviderStack.Screen name='CarsByProvider' component={CarsByProviderScreen} options={customHeaderBar} />
+            <ProviderStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
         </ProviderStack.Navigator>
     )
 }
@@ -155,7 +156,7 @@ export default () => {
                             iconName = 'person-outline';
                         }
                         if (route.name === 'Proveedores') {
-                            iconName = 'person-outline';
+                            iconName = 'people-outline';
                         }
                         return <Icon name={iconName} size={size} color={color} />;
                     },
@@ -166,8 +167,8 @@ export default () => {
                 }}>
                 <Tab.Screen name='Inicio' component={HomeStackScreen} />
                 <Tab.Screen name='Ingresos' component={RevenueStackScreen} />
-                <Tab.Screen name='Clientes' component={ClientStackScreen} />
                 <Tab.Screen name='Historial' component={SoldHistoryStackScreen} />
+                <Tab.Screen name='Clientes' component={ClientStackScreen} />
                 <Tab.Screen name='Proveedores' component={ProviderStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
