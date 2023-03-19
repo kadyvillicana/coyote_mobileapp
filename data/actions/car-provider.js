@@ -17,6 +17,19 @@ export default (realmInstance) => {
             }); 
         },
 
+        updateProviderById: (provider) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    realmInstance.write(() => {
+                        const updatedProvider = realmInstance.create(CarProviderModel.getModelName(), provider, 'modified');
+                        resolve(updatedProvider);
+                    })
+                } catch(e) {
+                    reject(e);
+                }
+            });
+        },
+
         providerSuggestions: (query) => {
             return new Promise((resolve, reject) => {
                 try {

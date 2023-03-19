@@ -78,12 +78,12 @@ const CarsByProviderScreen = ({ navigation, route }) => {
                 :
                 item.creditPaymentsSum === item.purchasePrice ?
                   <CustomText fontType='bold'
-                  style={{color: colors.green}}>
+                    style={{ color: colors.green }}>
                     Pagado
-                    </CustomText>
+                  </CustomText>
                   :
                   <CustomText fontType='bold'
-                  style={{color: colors.error}}
+                    style={{ color: colors.error }}
                   >{currencyFormat(item.creditPurchaseDebt, '0')}</CustomText>
 
               }
@@ -101,18 +101,32 @@ const CarsByProviderScreen = ({ navigation, route }) => {
       />
       {/* Container Provider Details */}
       <View style={{ backgroundColor: colors.backgroundVariant }}>
-        <View style={[styles.detailContainer, { borderWidth: 0, flex: 0 }]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EditProvider', {
+            providerId: provider.id,
+            propertyToUpdate: 'reference',
+            oldValue: provider.reference,
+            tagValue: 'Referencia del proveedor',
+          })}
+          style={[styles.detailContainer, { borderWidth: 0, flex: 0 }]}>
           <CustomText fontSize='small' secondaryColor>Referencia del proveedor</CustomText>
-          <CustomText>Amigo José</CustomText>
-        </View>
-        <View style={[styles.detailContainer, {
-          borderLeftWidth: 0,
-          borderTopWidth: 1,
-          borderRightWidth: 0, borderBottomWidth: 0, borderColor: colors.border, flex: 0
-        }]}>
+          <CustomText>{provider && provider.reference !== null ? provider.reference : 'Ingresa una referencia'}</CustomText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EditProvider', {
+            providerId: provider.id,
+            propertyToUpdate: 'phoneNumber',
+            oldValue: provider.phoneNumber,
+            tagValue: 'Número de teléfono',
+          })}
+          style={[styles.detailContainer, {
+            borderLeftWidth: 0,
+            borderTopWidth: 1,
+            borderRightWidth: 0, borderBottomWidth: 0, borderColor: colors.border, flex: 0
+          }]}>
           <CustomText fontSize='small' secondaryColor>Número de teléfono</CustomText>
-          <CustomText>434-34-33333</CustomText>
-        </View>
+          <CustomText>{provider && provider.phoneNumber !== null ? provider.phoneNumber : 'Ingresa un número de teléfono'}</CustomText>
+        </TouchableOpacity>
       </View>
       <View style={{ marginTop: 15, flex: 1 }}>
         <CustomText fontSize='medium' fontType='bold' style={{ paddingLeft: 15 }}>

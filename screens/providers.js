@@ -3,10 +3,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { carProviderActions } from '../data';
 import { CarCardVertical, CustomHeader, CustomText, MainScreenContainer } from '../components';
 import { useFocusEffect } from '@react-navigation/native';
+import currencyFormat from '../utils';
 
 const ProviderScreen = ({navigation}) => {
 
   const [providers, setProviders] = useState([]);
+  const [totalDebt, setTotalDebt] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -14,7 +16,13 @@ const ProviderScreen = ({navigation}) => {
 
     async function getProviders() {
       const providers = await carProviderActions.allProviders();
+      let _totalDebt = 0;
       if (mounted) {
+        providers.map((provider) => {
+          const cars = Array.from(provider.cars);
+          _totalDebt += cars.reduce((sum, {creditPurchaseDebt, isCarFinancedByProvider}) => isCarFinancedByProvider && sum + creditPurchaseDebt, 0);
+        })
+        setTotalDebt(_totalDebt);
         setProviders(providers);
         setIsLoading(false);
       }
@@ -26,10 +34,15 @@ const ProviderScreen = ({navigation}) => {
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
-
+      let _totalDebt = 0;
       async function getProviders() {
         const providers = await carProviderActions.allProviders();
         if (mounted) {
+          providers.map((provider) => {
+            const cars = Array.from(provider.cars);
+            _totalDebt += cars.reduce((sum, {creditPurchaseDebt, isCarFinancedByProvider}) => isCarFinancedByProvider && sum + creditPurchaseDebt, 0);
+          })
+          setTotalDebt(_totalDebt);
           setProviders(providers);
         }
       }
@@ -40,24 +53,17 @@ const ProviderScreen = ({navigation}) => {
 
   const ProviderItem = ({ item }) => {
     const cars = Array.from(item.cars);
+    const debt = cars.reduce((sum, {creditPurchaseDebt, isCarFinancedByProvider}) => isCarFinancedByProvider && sum + creditPurchaseDebt, 0);
     return (
-      <View style={
-        {
-          backgroundColor: '#2b3137',
-          borderRadius: 10,
-          padding: 15,
-          marginBottom: 15,
-        }
-      }>
-        <View>
-          <View>
-            <CustomText
-              fontType='bold'>
-              {item.name}
-            </CustomText>
-          </View>
-        </View>
-      </View>
+      <CarCardVertical 
+        title={item.name}
+        subTitleLeft='Autos comprados'
+        subTitleTextLeft={cars.length}
+        subTitleRight='Adeudo Total'
+        subTitleTextRight={<CustomText 
+          style={[debt > 0 ? {color: '#cf6679'}: {color: '#03dac6'}]}>
+           {currencyFormat(debt, 'Sin adeudo')}</CustomText>}
+      />
     )
   }
 
@@ -87,8 +93,15 @@ const ProviderScreen = ({navigation}) => {
         style={{ flex: 1, padding: 15 }}>
         <CustomHeader
           header='Proveedores'
-          subHeader=''
+          subHeader={`Adeudo: ${totalDebt}` }
         />
+        <View style={{marginBottom: 15}}>
+          <CustomText
+            fontType='bold'
+            fontSize='medium'>
+            {providers.length} Proveedores
+          </CustomText>
+        </View>
         <View>
           <FlatList
             keyExtractor={item => item.id}

@@ -22,6 +22,7 @@ import CarsByClientScreen from '../screens/cars-by-client';
 import CarProviderScreen from '../screens/car-provider';
 import ProviderScreen from '../screens/providers';
 import CarsByProviderScreen from '../screens/cars-by-provider';
+import EditProviderPropertyScreen from '../screens/edit-provider-property';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -128,6 +129,7 @@ function ProviderStackScreen(){
             <ProviderStack.Screen name='Providers' component={ProviderScreen} options={{headerShown: false}} />
             <ProviderStack.Screen name='CarsByProvider' component={CarsByProviderScreen} options={customHeaderBar} />
             <ProviderStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <ProviderStack.Screen name='EditProvider' component={EditProviderPropertyScreen} options={customHeaderBar} />
         </ProviderStack.Navigator>
     )
 }
