@@ -93,7 +93,7 @@ const ProviderScreen = ({navigation}) => {
         style={{ flex: 1, padding: 15 }}>
         <CustomHeader
           header='Proveedores'
-          subHeader={`Adeudo: ${totalDebt}` }
+          subHeader={`Adeudo: ${currencyFormat(totalDebt, 'Sin adeudo')}` }
         />
         <View style={{marginBottom: 15}}>
           <CustomText
@@ -111,13 +111,6 @@ const ProviderScreen = ({navigation}) => {
               <TouchableOpacity
               onPress={() => navigation.navigate('CarsByProvider', {providerId: item.id})}>
                   <ProviderItem item={item} />
-                  {/* <CustomText>
-                    {item.name}
-                  </CustomText>
-                  {
-                    item.cars && item.cars.length > 0 &&
-                    item.cars.map((car) => <CustomText fontSize={'small'}>{car.make}</CustomText>)
-                  } */}
                 </TouchableOpacity>
             }
           />

@@ -6,6 +6,7 @@ import { carProviderActions } from '../data';
 import currencyFormat from '../utils';
 
 const CarsByProviderScreen = ({ navigation, route }) => {
+  const phoneNumberMask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/,];
   const { colors } = useTheme();
   const { providerId } = route.params;
   const [cars, setCars] = useState([]);
@@ -125,7 +126,7 @@ const CarsByProviderScreen = ({ navigation, route }) => {
             borderRightWidth: 0, borderBottomWidth: 0, borderColor: colors.border, flex: 0
           }]}>
           <CustomText fontSize='small' secondaryColor>Número de teléfono</CustomText>
-          <CustomText>{provider && provider.phoneNumber !== null ? provider.phoneNumber : 'Ingresa un número de teléfono'}</CustomText>
+          <CustomText mask={phoneNumberMask}>{provider && provider.phoneNumber !== null ? provider.phoneNumber : 'Ingresa un número de teléfono'}</CustomText>
         </TouchableOpacity>
       </View>
       <View style={{ marginTop: 15, flex: 1 }}>
