@@ -127,8 +127,8 @@ export default (realmInstance) => {
     getSoldCreditClients: () => {
         return new Promise((resolve, reject) => {
             try {
-                const cars = realmInstance.objects(CarModel.getCarModelName())
-                    .filtered('status = $0 AND clientName != "" SORT(soldDate DESC)', 'soldCredit');
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                    .filtered('status = $0 AND clientName != "" SORT(soldDate DESC)', 'soldCredit'));
 
                 if(!cars){
                     resolve([]);
@@ -144,8 +144,8 @@ export default (realmInstance) => {
     getSoldCreditClientsWithDebt: () => {
         return new Promise((resolve, reject) => {
             try {
-                const cars = realmInstance.objects(CarModel.getCarModelName())
-                    .filtered('status = $0 AND clientName != "" SORT(soldDate DESC)', 'soldCredit');
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                    .filtered('status = $0 AND clientName != "" SORT(soldDate DESC)', 'soldCredit'));
 
                 if(!cars){
                     resolve([]);
@@ -164,8 +164,8 @@ export default (realmInstance) => {
     getCarsByClientName: (clientName) => {
         return new Promise((resolve, reject) => {
             try {
-                const cars = realmInstance.objects(CarModel.getCarModelName())
-                    .filtered('status = $0 AND clientName = $1 SORT(soldDate DESC)', 'soldCredit', clientName);
+                const cars = Array.from(realmInstance.objects(CarModel.getCarModelName())
+                    .filtered('status = $0 AND clientName = $1 SORT(soldDate DESC)', 'soldCredit', clientName));
                 if(!cars){
                     resolve([]);
                 }

@@ -17,10 +17,10 @@ const ClientScreen = ({navigation}) => {
     async function getClients() {
       const clients = await carActions.getSoldCreditClientsWithDebt();
       let _totalDebt = 0;
-      for (const client in clients) {
-        _totalDebt += clients[client].reduce((sum, {carCreditDebt}) => sum + carCreditDebt, 0);
-      }
       if(mounted){
+        for (const client in clients) {
+          _totalDebt += clients[client].reduce((sum, {carCreditDebt}) => sum + carCreditDebt, 0);
+        }
         setClients(clients);
         setTotalDebt(_totalDebt);
         setLoading(false);
@@ -29,10 +29,6 @@ const ClientScreen = ({navigation}) => {
     getClients();
     return () => mounted = false;
   }, []);
-
-  const displayAllClients = () => {
-    return false;
-  }
   
   useFocusEffect(
     React.useCallback(() => {

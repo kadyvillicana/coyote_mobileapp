@@ -9,7 +9,7 @@ import Moment from 'moment';
 
 const PaymentScreen = ({route}) => {
   const [payments, setPayments] = useState(route.params.payments)
-  const {carId} = route.params;
+  const {carId, propertyToUpdate} = route.params;
   const [visible, setVisible] = useState(false);
   const [defaultItem, setDefaultItem] = useState(
     {
@@ -51,7 +51,7 @@ const PaymentScreen = ({route}) => {
       return;
     }
     const filteredData = payments.filter(item => item.id !== removeItemId);
-    await carActions.updateCarById({id:carId, payments: filteredData});
+    await carActions.updateCarById({id:carId, [propertyToUpdate]: filteredData});
     setPayments(filteredData);
     hideConfirmationModal();
   }
@@ -73,7 +73,7 @@ const PaymentScreen = ({route}) => {
 
     await carActions.updateCarById({
       id: carId,
-      payments: payments,
+      [propertyToUpdate]: payments,
     });
 
     hideModal();

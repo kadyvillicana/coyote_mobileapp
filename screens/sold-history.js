@@ -107,7 +107,7 @@ const SoldHistoryScreen = ({navigation}) => {
             {filteredData.length} Vehículos vendidos
           </CustomText>
         </View>
-        <View style={{marginBottom: 200}}>
+        <View style={{flex: 1}}>
           <FlatList
             data={filteredData}
             renderItem={

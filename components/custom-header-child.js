@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Platform } from 'react-native';
-import { CustomText } from '../components';
 import { IconButton } from 'react-native-paper';
 import { useTheme } from '@react-navigation/native';
+import CustomText from './custom-text';
 
 const CustomHeaderChild = ({title, onPressRightButton}) => {
   const {colors} = useTheme();

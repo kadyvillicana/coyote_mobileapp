@@ -29,6 +29,9 @@ export default class CarModel {
             // if status is soldCredit set dueDate for credit
             dueDate: 'date?',
             clientName: 'string?',
+            carProvider: 'CarProvider?',
+            creditPurchasePayments: 'Payment[]',
+            isCarFinancedByProvider: {type: 'bool', default: false},
         },
     }
 
@@ -69,5 +72,14 @@ export default class CarModel {
     get carCreditDebt(){
         const payments = this.paymentsSum && this.paymentsSum > 0 ? this.paymentsSum : 0;
         return this.soldPrice - payments;
+    }
+
+    get creditPaymentsSum(){
+        return this.creditPurchasePayments.reduce((sum, {value}) => sum + value, 0);
+    }
+
+    get creditPurchaseDebt(){
+        const payments = this.creditPaymentsSum && this.creditPaymentsSum > 0 ? this.creditPaymentsSum : 0;
+        return this.purchasePrice - payments;
     }
 };

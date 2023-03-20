@@ -19,6 +19,10 @@ import PaymentScreen from '../screens/payments';
 import ClientScreen from '../screens/clients';
 import EditClientNameScreen from '../screens/edit-client-name';
 import CarsByClientScreen from '../screens/cars-by-client';
+import CarProviderScreen from '../screens/car-provider';
+import ProviderScreen from '../screens/providers';
+import CarsByProviderScreen from '../screens/cars-by-provider';
+import EditProviderPropertyScreen from '../screens/edit-provider-property';
 
 const MyTheme = {
     ...DefaultTheme,
@@ -67,6 +71,7 @@ function HomeStackScreen(){
             <HomeStack.Screen name='EditCar' component={EditCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='SellCar' component={SellCarScreen} options={customHeaderBar} />
             <HomeStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <HomeStack.Screen name='CarProvider' component={CarProviderScreen} options={customHeaderBar} />
         </HomeStack.Navigator>
     )
 }
@@ -117,6 +122,18 @@ function SoldHistoryStackScreen(){
     )
 }
 
+const ProviderStack = createStackNavigator();
+function ProviderStackScreen(){
+    return (
+        <ProviderStack.Navigator>
+            <ProviderStack.Screen name='Providers' component={ProviderScreen} options={{headerShown: false}} />
+            <ProviderStack.Screen name='CarsByProvider' component={CarsByProviderScreen} options={customHeaderBar} />
+            <ProviderStack.Screen name='Payments' component={PaymentScreen} options={customHeaderBar} />
+            <ProviderStack.Screen name='EditProvider' component={EditProviderPropertyScreen} options={customHeaderBar} />
+        </ProviderStack.Navigator>
+    )
+}
+
 const Tab = createBottomTabNavigator();
 
 
@@ -140,6 +157,9 @@ export default () => {
                         if (route.name === 'Clientes') {
                             iconName = 'person-outline';
                         }
+                        if (route.name === 'Proveedores') {
+                            iconName = 'people-outline';
+                        }
                         return <Icon name={iconName} size={size} color={color} />;
                     },
                 })}
@@ -149,8 +169,9 @@ export default () => {
                 }}>
                 <Tab.Screen name='Inicio' component={HomeStackScreen} />
                 <Tab.Screen name='Ingresos' component={RevenueStackScreen} />
-                <Tab.Screen name='Clientes' component={ClientStackScreen} />
                 <Tab.Screen name='Historial' component={SoldHistoryStackScreen} />
+                <Tab.Screen name='Clientes' component={ClientStackScreen} />
+                <Tab.Screen name='Proveedores' component={ProviderStackScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )

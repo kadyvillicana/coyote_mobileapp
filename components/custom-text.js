@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { useTheme } from '@react-navigation/native';
+import { formatWithMask } from 'react-native-mask-input'
 
-const CustomText = ({children, fontType, fontSize, style, secondaryColor, primaryColor}) => {
+const CustomText = ({children, fontType, fontSize, style, secondaryColor, primaryColor, numberOfLines, mask}) => {
 
     const { colors } = useTheme();
 
@@ -40,10 +41,16 @@ const CustomText = ({children, fontType, fontSize, style, secondaryColor, primar
 
     const font = getFontType(fontType);
     const size = getFontSize(fontSize);
+
+    if(mask && children){
+        const {masked} = formatWithMask({text: children, mask })
+        children = masked
+    }
     
 
     return(
-        <Text 
+        <Text
+            numberOfLines={numberOfLines} 
             style={[
                 {
                     color: secondaryColor ? colors.textSecondary : primaryColor ? colors.primary : colors.text,

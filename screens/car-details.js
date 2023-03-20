@@ -75,7 +75,7 @@ const CarDetailsScreen = ({route, navigation}) => {
           {
             icon: 'check',
             label: 'Vender',
-            onPress: () => navigation.navigate('SellCar', {carId: car.id}),
+            onPress: () => navigation.navigate('SellCar', {carId: car.id, purchasePricePlusOutgoings: car.purchasePricePlusOutgoings}),
           },
         ];
       case 'sold':
@@ -106,7 +106,7 @@ const CarDetailsScreen = ({route, navigation}) => {
           {
             icon: 'credit-card-outline',
             label: 'Pagos',
-            onPress: () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id}),
+            onPress: () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id, propertyToUpdate: 'payments'}),
           },
         ];
       default:
@@ -227,7 +227,7 @@ const CarDetailsScreen = ({route, navigation}) => {
             <View style={{backgroundColor: colors.backgroundVariant}}>
               <View style={{flexDirection:'row'}}>
                 <TouchableOpacity
-                  onPress={ () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id})}
+                  onPress={ () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id, propertyToUpdate: 'payments'})}
                   style={[styles.detailContainer, {
                     borderLeftWidth:0,
                     borderTopWidth: 0,
@@ -249,7 +249,7 @@ const CarDetailsScreen = ({route, navigation}) => {
             <View style={{backgroundColor: colors.backgroundVariant}}>
               <View style={{flexDirection: 'row'}}> 
                 <TouchableOpacity
-                  onPress={ () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id})}
+                  onPress={ () => navigation.navigate('Payments', {payments: Array.from(car.payments), carId: car.id, propertyToUpdate: 'payments'})}
                   style={[styles.detailContainer, {
                     borderLeftWidth:0,
                     borderTopWidth: 0,
@@ -275,7 +275,6 @@ const CarDetailsScreen = ({route, navigation}) => {
         </View>
         : null
       }
-
       <FAB.Group
           open={open}
           icon={open ? 'close' : 'dots-vertical'}
